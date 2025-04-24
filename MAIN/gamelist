@@ -1,0 +1,8 @@
+local Games = {
+
+[16732694052] = "https://raw.githubusercontent.com/ttvkaiser/Nebula-Hub/refs/heads/main/MAIN/FISCHONLY", -- Fisch
+[3623096087] = "https://raw.githubusercontent.com/ttvkaiser/Nebula-Hub/refs/heads/main/MAIN/MUSCLE-LEGENDS-ONLY", -- Muscle Legends
+
+}
+
+return Games
