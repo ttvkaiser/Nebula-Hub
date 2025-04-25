@@ -630,6 +630,14 @@ if config.disableChat then
 end
 
 -- Utility functions (same as before)
+-- Utility functions
+local utility = {}
+
+utility.simulate_click = function(x, y, mb)
+    local vim = game:GetService("VirtualInputManager")
+    vim:SendMouseButtonEvent(x, y, (mb - 1), true, game, 1)
+    vim:SendMouseButtonEvent(x, y, (mb - 1), false, game, 1)
+end
 -- farm functions (same as before)
 
 -- Declare farm
