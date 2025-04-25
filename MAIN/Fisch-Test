@@ -597,7 +597,7 @@ Players.PlayerRemoving:Connect(function()
     Dropdown3:SetValues(getPlayerNames())
 end)
 
--- Teleport to selected player
+
 Dropdown3:OnChanged(function(targetName)
     local targetPlayer = Players:FindFirstChild(targetName)
     if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -605,7 +605,10 @@ Dropdown3:OnChanged(function(targetName)
     end
 end)
 
--- Configuration variables and services setup
+
+
+-- Teleport to selected player
+--// CONFIG
 local config = {
     fpsCap = 9999,
     disableChat = false,
@@ -615,37 +618,43 @@ local config = {
     FreezeWhileFishing = true
 }
 
+--// FPS + CHAT
 setfpscap(config.fpsCap)
-
-local players = game:GetService("Players")
-local vim = game:GetService("VirtualInputManager")
-local run_service = game:GetService("RunService")
-local replicated_storage = game:GetService("ReplicatedStorage")
-local localplayer = players.LocalPlayer
-local playergui = localplayer.PlayerGui
 local StarterGui = game:GetService("StarterGui")
-
 if config.disableChat then
     StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
 end
 
--- Utility functions (same as before)
--- Utility functions
-local utility = {}
+--// SERVICES
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
-utility.simulate_click = function(x, y, mb)
-    local vim = game:GetService("VirtualInputManager")
-    vim:SendMouseButtonEvent(x, y, (mb - 1), true, game, 1)
-    vim:SendMouseButtonEvent(x, y, (mb - 1), false, game, 1)
+--// UTILITIES
+local utility = {
+    blacklisted_attachments = {"bob", "bodyweld"}
+}
+
+function utility.simulate_click(x, y, mb)
+    VirtualInputManager:SendMouseButtonEvent(x, y, (mb - 1), true, game, 1)
+    VirtualInputManager:SendMouseButtonEvent(x, y, (mb - 1), false, game, 1)
 end
--- farm functions (same as before)
 
--- Declare farm
+function utility.move_fix(bobber)
+    for _, v in pairs(bobber:GetDescendants()) do
+        if v:IsA("Attachment") and table.find(utility.blacklisted_attachments, v.Name) then
+            v:Destroy()
+        end
+    end
+end
+
+--// FARM BASE
 local farm = {reel_tick = nil, cast_tick = nil}
 
--- Add the toggles for AutoRod, AutoCast, AutoShake, AutoReel
+--// TOGGLE 1: Auto Equip Rod
 local Toggle_AutoRod = Tabs.Main2:AddToggle("AutoRod", {Title = "Auto Equip Rod", Default = false})
-
 Toggle_AutoRod:OnChanged(function()
     print("Auto Equip Rod:", Options.AutoRod.Value)
 
@@ -653,18 +662,23 @@ Toggle_AutoRod:OnChanged(function()
         while Options.AutoRod.Value do
             task.wait(0.2)
 
-            local character = localplayer.Character
+            local character = LocalPlayer.Character
             if not character then continue end
 
+            local hasRod = false
             for _, tool in ipairs(character:GetChildren()) do
                 if tool:IsA("Tool") and tool.Name:lower():find("rod") then
-                    -- Rod is already equipped
+                    hasRod = true
                     break
-                else
-                    -- Equip rod if not already equipped
-                    local rod = farm.find_rod()
-                    if rod then
-                        rod.Parent = character
+                end
+            end
+
+            -- Auto-equip if no rod
+            if not hasRod then
+                for _, tool in ipairs(LocalPlayer.Backpack:GetChildren()) do
+                    if tool:IsA("Tool") and tool.Name:lower():find("rod") then
+                        tool.Parent = character
+                        break
                     end
                 end
             end
@@ -672,8 +686,8 @@ Toggle_AutoRod:OnChanged(function()
     end)
 end)
 
+--// TOGGLE 2: Auto Cast
 local Toggle_AutoCast = Tabs.Main2:AddToggle("AutoCast", {Title = "Auto Cast", Default = false})
-
 Toggle_AutoCast:OnChanged(function()
     print("Auto Cast:", Options.AutoCast.Value)
 
@@ -681,22 +695,20 @@ Toggle_AutoCast:OnChanged(function()
         while Options.AutoCast.Value do
             task.wait(1)
 
-            local character = localplayer.Character
+            local character = LocalPlayer.Character
             if not character then continue end
 
-            local rod = farm.find_rod()
-            if rod then
-                -- Check if the rod can be cast and fire the event
-                if rod:FindFirstChild("events") and rod.events:FindFirstChild("cast") then
-                    rod.events.cast:FireServer(100, 1)
+            for _, tool in ipairs(character:GetChildren()) do
+                if tool:IsA("Tool") and tool:FindFirstChild("events") and tool.events:FindFirstChild("cast") then
+                    tool.events.cast:FireServer(100, 1)
                 end
             end
         end
     end)
 end)
 
+--// TOGGLE 3: Auto Shake
 local Toggle_AutoShake = Tabs.Main2:AddToggle("AutoShake", {Title = "Auto Shake", Default = false})
-
 Toggle_AutoShake:OnChanged(function()
     print("Auto Shake:", Options.AutoShake.Value)
 
@@ -704,13 +716,12 @@ Toggle_AutoShake:OnChanged(function()
         while Options.AutoShake.Value do
             task.wait(config.shakeSpeed)
 
-            local shake_ui = playergui:FindFirstChild("shakeui")
+            local shake_ui = PlayerGui:FindFirstChild("shakeui")
             if shake_ui then
                 local safezone = shake_ui:FindFirstChild("safezone")
                 local button = safezone and safezone:FindFirstChild("button")
 
                 if button and button.Visible then
-                    -- Scale the button
                     button.Size = config.enableBigButton
                         and UDim2.new(config.bigButtonScaleFactor, 0, config.bigButtonScaleFactor, 0)
                         or UDim2.new(1, 0, 1, 0)
@@ -726,8 +737,8 @@ Toggle_AutoShake:OnChanged(function()
     end)
 end)
 
+--// TOGGLE 4: Auto Reel
 local Toggle_AutoReel = Tabs.Main2:AddToggle("AutoReel", {Title = "Auto Reel", Default = false})
-
 Toggle_AutoReel:OnChanged(function()
     print("Auto Reel:", Options.AutoReel.Value)
 
@@ -735,8 +746,25 @@ Toggle_AutoReel:OnChanged(function()
         while Options.AutoReel.Value do
             task.wait(0.5)
 
-            local reel_ui = playergui:FindFirstChild("reel")
+            local reel_ui = PlayerGui:FindFirstChild("reel")
             if not reel_ui then continue end
+
+            local reel_bar = reel_ui:FindFirstChild("bar")
+            local reel_client = reel_bar and reel_bar:FindFirstChild("reel")
+            if not reel_client then continue end
+
+            if reel_client.Disabled then
+                reel_client.Disabled = false
+            end
+
+            local update_colors = getsenv(reel_client).UpdateColors
+            if update_colors then
+                setupvalue(update_colors, 1, 100)
+                ReplicatedStorage.events.reelfinished:FireServer(getupvalue(update_colors, 1), true)
+            end
+        end
+    end)
+end)
 
 
 
