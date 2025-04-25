@@ -608,7 +608,7 @@ end)
 -- Configuration variables and services setup
 local config = {
     fpsCap = 9999,
-    disableChat = true,
+    disableChat = false,
     enableBigButton = true,
     bigButtonScaleFactor = 2,
     shakeSpeed = 0.05,
