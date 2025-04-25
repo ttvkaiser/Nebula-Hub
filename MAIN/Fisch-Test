@@ -605,6 +605,37 @@ Dropdown3:OnChanged(function(targetName)
     end
 end)
 
+-- Configuration variables and services setup
+local config = {
+    fpsCap = 9999,
+    disableChat = true,
+    enableBigButton = true,
+    bigButtonScaleFactor = 2,
+    shakeSpeed = 0.05,
+    FreezeWhileFishing = true
+}
+
+setfpscap(config.fpsCap)
+
+local players = game:GetService("Players")
+local vim = game:GetService("VirtualInputManager")
+local run_service = game:GetService("RunService")
+local replicated_storage = game:GetService("ReplicatedStorage")
+local localplayer = players.LocalPlayer
+local playergui = localplayer.PlayerGui
+local StarterGui = game:GetService("StarterGui")
+
+if config.disableChat then
+    StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+end
+
+-- Utility functions (same as before)
+-- farm functions (same as before)
+
+-- Declare farm
+local farm = {reel_tick = nil, cast_tick = nil}
+
+-- Add the toggles for AutoRod, AutoCast, AutoShake, AutoReel
 local Toggle_AutoRod = Tabs.Main2:AddToggle("AutoRod", {Title = "Auto Equip Rod", Default = false})
 
 Toggle_AutoRod:OnChanged(function()
@@ -621,6 +652,12 @@ Toggle_AutoRod:OnChanged(function()
                 if tool:IsA("Tool") and tool.Name:lower():find("rod") then
                     -- Rod is already equipped
                     break
+                else
+                    -- Equip rod if not already equipped
+                    local rod = farm.find_rod()
+                    if rod then
+                        rod.Parent = character
+                    end
                 end
             end
         end
@@ -639,9 +676,11 @@ Toggle_AutoCast:OnChanged(function()
             local character = localplayer.Character
             if not character then continue end
 
-            for _, tool in ipairs(character:GetChildren()) do
-                if tool:IsA("Tool") and tool:FindFirstChild("events") and tool.events:FindFirstChild("cast") then
-                    tool.events.cast:FireServer(100, 1)
+            local rod = farm.find_rod()
+            if rod then
+                -- Check if the rod can be cast and fire the event
+                if rod:FindFirstChild("events") and rod.events:FindFirstChild("cast") then
+                    rod.events.cast:FireServer(100, 1)
                 end
             end
         end
