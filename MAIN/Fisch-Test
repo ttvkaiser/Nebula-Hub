@@ -714,7 +714,7 @@ Toggle_AutoCast:OnChanged(function()
     end)
 end)
 
-local Toggle_AutoShake = Tabs.Main2:AddToggle("AutoShake", {Title = "Auto Shake", Default = false})
+local Toggle_AutoShake = Tabs.Main2:AddToggle("AutoShake", {Title = "Fast Auto Shake", Default = false})
 
 Toggle_AutoShake:OnChanged(function()
     print("Auto Shake:", Options.AutoShake.Value)
@@ -774,6 +774,38 @@ Toggle_AutoReel:OnChanged(function()
         end
     end)
 end)
+
+local Toggle_LockPosition = Tabs.Miscellaneous:AddToggle("LockPosition", {Title = "Lock Position", Default = false })
+
+Toggle_LockPosition:OnChanged(function()
+    print("Lock Position changed:", Options.LockPosition.Value)
+
+    local character = localplayer.Character
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    
+    -- When toggled on, lock the character's position
+    if humanoid then
+        if Options.LockPosition.Value then
+            humanoid.PlatformStand = true  -- Disables the player's movement (e.g., walk/run)
+            
+            -- Optional: Lock position by setting the character's root part position to a fixed value
+            local rootPart = character:FindFirstChild("HumanoidRootPart")
+            if rootPart then
+                rootPart.Anchored = true  -- Lock the position of the character's root part
+            end
+        else
+            humanoid.PlatformStand = false  -- Re-enable movement when toggle is off
+            
+            -- Optional: Un-anchor the root part so the character can move again
+            local rootPart = character:FindFirstChild("HumanoidRootPart")
+            if rootPart then
+                rootPart.Anchored = false  -- Unanchor to allow movement again
+            end
+        end
+    end
+end)
+
+Options.LockPosition:SetValue(false)  -- Default value is unlocked
 
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
