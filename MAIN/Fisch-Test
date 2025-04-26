@@ -382,16 +382,6 @@ do
     end)
 end
 
-local player = game.Players.LocalPlayer
-
-local function updateWalkspeed(speed)
-	local character = player.Character or player.CharacterAdded:Wait()
-	local humanoid = character:FindFirstChildOfClass("Humanoid")
- 	   if humanoid then
- 	       humanoid.WalkSpeed = speed
-	    end
-end
-
 Tabs.Home:AddButton({
     Title = "Discord Server",
     Description = "Copy this link for Nebula Hub Main Server!",
@@ -418,6 +408,16 @@ Tabs.Home:AddButton({
         })
     end
 })
+
+local player = game.Players.LocalPlayer
+
+local function updateWalkspeed(speed)
+	local character = player.Character or player.CharacterAdded:Wait()
+	local humanoid = character:FindFirstChildOfClass("Humanoid")
+ 	   if humanoid then
+ 	       humanoid.WalkSpeed = speed
+	    end
+end
 
 local Slider = Tabs.Home:AddSlider("Slider", {
     Title = "Set Walkspeed [BETA]",
@@ -469,19 +469,6 @@ Options.MyToggle:SetValue(false)
         Title = "ABOUT AUTO FISHING!",
         Content = "This is Auto Fishing is still in development!"
     })
-
-local Toggle2 = Tabs.Main2:AddToggle("SecondToggle", {
-Title = "Auto Fish [IN TESTING]",
-Default = false
-})
-
-Toggle2:OnChanged(function()
-local isEnabled = Options.SecondToggle.Value
-print("SecondToggle changed:", isEnabled)
--- Your logic for what this second toggle should do
-end)
-
-Options.SecondToggle:SetValue(false)
 
 local Dropdown2 = Tabs.Teleport:AddDropdown("TeleportDropdown", {
     Title = "Teleport Islands!",
@@ -541,6 +528,23 @@ local Dropdown3 = Tabs.Teleport:AddDropdown("TeleportDropdown", {
     Default = 1,
 })
 
+-- Update list if players join or leave
+Players.PlayerAdded:Connect(function()
+    Dropdown3:SetValues(getPlayerNames())
+end)
+
+Players.PlayerRemoving:Connect(function()
+    Dropdown3:SetValues(getPlayerNames())
+end)
+
+-- Teleport to selected player
+Dropdown3:OnChanged(function(targetName)
+    local targetPlayer = Players:FindFirstChild(targetName)
+    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        LocalPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+    end
+end)
+
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
@@ -588,28 +592,10 @@ end)
 
 Options.MyToggle3:SetValue(false)
 
--- Update list if players join or leave
-Players.PlayerAdded:Connect(function()
-    Dropdown3:SetValues(getPlayerNames())
-end)
-
-Players.PlayerRemoving:Connect(function()
-    Dropdown3:SetValues(getPlayerNames())
-end)
-
-
-Dropdown3:OnChanged(function(targetName)
-    local targetPlayer = Players:FindFirstChild(targetName)
-    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
-        LocalPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
-    end
-end)
-
-
 -- Config
 local config = {
     fpsCap = 9999,
-    disableChat = true,
+    disableChat = false,
     enableBigButton = true,
     bigButtonScaleFactor = 2,
     shakeSpeed = 0.05,
@@ -773,7 +759,7 @@ InterfaceManager:SetLibrary(Fluent)
 -- (we dont want configs to save themes, do we?)
 SaveManager:IgnoreThemeSettings()
 
-add indexes of elements the save manager should ignore
+-- You can add indexes of elements the save manager should ignore
 SaveManager:SetIgnoreIndexes({})
 
 -- use case for doing it this way:
