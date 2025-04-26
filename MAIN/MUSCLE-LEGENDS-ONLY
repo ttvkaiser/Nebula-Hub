@@ -508,19 +508,22 @@ end)
 
 Options.MyToggle3:SetValue(false)
 
--- Create toggles for each training activity in different blocks with Tabs.Main2
+-- Auto Pushups Toggle
 local Toggle_Pushups = Tabs.Main2:AddToggle("AutoPushups", {Title = "Auto Pushups", Default = false})
 
 local autoPushupsEnabled = false
-local pushupButton = workspace:WaitForChild("PushupArea"):WaitForChild("PushupButton") -- Replace with the actual pushup button
+local pushupButton = workspace:WaitForChild("PushupArea"):WaitForChild("PushupButton") -- Ensure correct reference
 
 local function startAutoPushups()
     autoPushupsEnabled = true
     while autoPushupsEnabled do
         if pushupButton then
+            print("Activating pushups...")  -- Debugging line to confirm button press
             pushupButton.Activated:Fire() -- Simulate pressing the pushup button
+        else
+            print("Pushup button not found!")  -- Error handling
         end
-        wait(1) -- Adjust speed for auto pushups
+        wait(1) -- Adjust timing as needed
     end
 end
 
@@ -539,15 +542,18 @@ end)
 local Toggle_Weights = Tabs.Main2:AddToggle("AutoWeights", {Title = "Auto Weights", Default = false})
 
 local autoWeightsEnabled = false
-local weightsButton = workspace:WaitForChild("WeightsArea"):WaitForChild("WeightsButton") -- Replace with the actual weights button
+local weightsButton = workspace:WaitForChild("WeightsArea"):WaitForChild("WeightsButton") -- Ensure correct reference
 
 local function startAutoWeights()
     autoWeightsEnabled = true
     while autoWeightsEnabled do
         if weightsButton then
+            print("Activating weights...")  -- Debugging line to confirm button press
             weightsButton.Activated:Fire() -- Simulate pressing the weights button
+        else
+            print("Weights button not found!")  -- Error handling
         end
-        wait(1) -- Adjust speed for auto weights
+        wait(1) -- Adjust timing as needed
     end
 end
 
@@ -566,15 +572,18 @@ end)
 local Toggle_Situps = Tabs.Main2:AddToggle("AutoSitups", {Title = "Auto Sit-ups", Default = false})
 
 local autoSitupsEnabled = false
-local situpButton = workspace:WaitForChild("SitupArea"):WaitForChild("SitupButton") -- Replace with the actual situp button
+local situpButton = workspace:WaitForChild("SitupArea"):WaitForChild("SitupButton") -- Ensure correct reference
 
 local function startAutoSitups()
     autoSitupsEnabled = true
     while autoSitupsEnabled do
         if situpButton then
+            print("Activating sit-ups...")  -- Debugging line to confirm button press
             situpButton.Activated:Fire() -- Simulate pressing the sit-up button
+        else
+            print("Sit-up button not found!")  -- Error handling
         end
-        wait(1) -- Adjust speed for auto sit-ups
+        wait(1) -- Adjust timing as needed
     end
 end
 
@@ -593,15 +602,18 @@ end)
 local Toggle_Punches = Tabs.Main2:AddToggle("AutoPunches", {Title = "Auto Punches", Default = false})
 
 local autoPunchesEnabled = false
-local punchButton = workspace:WaitForChild("PunchArea"):WaitForChild("PunchButton") -- Replace with the actual punch button
+local punchButton = workspace:WaitForChild("PunchArea"):WaitForChild("PunchButton") -- Ensure correct reference
 
 local function startAutoPunches()
     autoPunchesEnabled = true
     while autoPunchesEnabled do
         if punchButton then
+            print("Activating punches...")  -- Debugging line to confirm button press
             punchButton.Activated:Fire() -- Simulate pressing the punch button
+        else
+            print("Punch button not found!")  -- Error handling
         end
-        wait(1) -- Adjust speed for auto punches
+        wait(1) -- Adjust timing as needed
     end
 end
 
