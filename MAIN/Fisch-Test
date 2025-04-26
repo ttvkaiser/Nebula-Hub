@@ -714,7 +714,7 @@ Toggle_AutoCast:OnChanged(function()
     end)
 end)
 
-local Toggle_AutoShake = Tabs.Main2:AddToggle("AutoShake", {Title = "Auto Shake [BETA]", Default = false})
+ local Toggle_AutoShake = Tabs.Main2:AddToggle("AutoShake", {Title = "Auto Shake", Default = false})
 
 Toggle_AutoShake:OnChanged(function()
     print("Auto Shake:", Options.AutoShake.Value)
@@ -723,17 +723,20 @@ Toggle_AutoShake:OnChanged(function()
         while Options.AutoShake.Value do
             task.wait(config.shakeSpeed)
 
-            local shake_ui = playergui:FindFirstChild("shakeui")
+            -- Only target the specific shake UI and ignore other GUIs
+            local shake_ui = PlayerGui:FindFirstChild("shakeui")
             if shake_ui then
                 local safezone = shake_ui:FindFirstChild("safezone")
                 local button = safezone and safezone:FindFirstChild("button")
 
+                -- Make sure the button is part of the shake UI
                 if button and button.Visible then
-                    -- Scale the button
+                    -- Scale the button based on config
                     button.Size = config.enableBigButton
                         and UDim2.new(config.bigButtonScaleFactor, 0, config.bigButtonScaleFactor, 0)
                         or UDim2.new(1, 0, 1, 0)
 
+                    -- Click only the shake button
                     utility.simulate_click(
                         button.AbsolutePosition.X + button.AbsoluteSize.X / 2,
                         button.AbsolutePosition.Y + button.AbsoluteSize.Y / 2,
@@ -744,6 +747,7 @@ Toggle_AutoShake:OnChanged(function()
         end
     end)
 end)
+                        
 
 local Toggle_AutoReel = Tabs.Main2:AddToggle("AutoReel", {Title = "Auto Reel [BETA]", Default = false})
 
