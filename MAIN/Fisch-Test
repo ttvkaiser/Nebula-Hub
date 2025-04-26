@@ -664,6 +664,21 @@ Toggle_AutoRod:OnChanged(function()
     end)
 end)
 
+--// Helper function to find the rod
+function find_rod()
+    local character = LocalPlayer.Character
+    if not character then return nil end
+
+    for _, tool in ipairs(character:GetChildren()) do
+        if tool:IsA("Tool") and tool:FindFirstChild("events") and tool.events:FindFirstChild("cast") then
+            return tool
+        end
+    end
+
+    return nil
+end
+
+--// Auto Cast Toggle
 local Toggle_AutoCast = Tabs.Main2:AddToggle("AutoCast", {Title = "Auto Cast [BETA]", Default = false})
 
 Toggle_AutoCast:OnChanged(function()
@@ -673,15 +688,9 @@ Toggle_AutoCast:OnChanged(function()
         while Options.AutoCast.Value do
             task.wait(1)
 
-            local character = localplayer.Character
-            if not character then continue end
-
-            local rod = farm.find_rod()
+            local rod = find_rod()
             if rod then
-                -- Check if the rod can be cast and fire the event
-                if rod:FindFirstChild("events") and rod.events:FindFirstChild("cast") then
-                    rod.events.cast:FireServer(100, 1)
-                end
+                rod.events.cast:FireServer(100, 1)
             end
         end
     end)
