@@ -724,7 +724,7 @@ Toggle_AutoShake:OnChanged(function()
             task.wait(config.shakeSpeed)
 
             -- Only target the specific shake UI and ignore other GUIs
-            local shake_ui = PlayerGui:FindFirstChild("shakeui")
+            local shake_ui = playergui:FindFirstChild("shakeui")
             if shake_ui then
                 local safezone = shake_ui:FindFirstChild("safezone")
                 local button = safezone and safezone:FindFirstChild("button")
