@@ -634,8 +634,22 @@ function utility.move_fix(bobber)
     end
 end
 
-local farm = {reel_tick = nil, cast_tick = nil}
+--// FARM BASE
+local farm = {
+    reel_tick = nil,
+    cast_tick = nil,
 
+    find_rod_in_backpack = function()
+        for _, tool in ipairs(LocalPlayer.Backpack:GetChildren()) do
+            if tool:IsA("Tool") and tool.Name:lower():find("rod") then
+                return tool
+            end
+        end
+        return nil
+    end
+}
+
+--// TOGGLE 1: Auto Equip Rod
 local Toggle_AutoRod = Tabs.Main2:AddToggle("AutoRod", {Title = "Auto Equip Rod [BETA]", Default = false})
 
 Toggle_AutoRod:OnChanged(function()
@@ -645,19 +659,23 @@ Toggle_AutoRod:OnChanged(function()
         while Options.AutoRod.Value do
             task.wait(0.2)
 
-            local character = localplayer.Character
+            local character = LocalPlayer.Character
             if not character then continue end
 
+            -- Check if already holding a rod
+            local hasRodEquipped = false
             for _, tool in ipairs(character:GetChildren()) do
                 if tool:IsA("Tool") and tool.Name:lower():find("rod") then
-                    -- Rod is already equipped
+                    hasRodEquipped = true
                     break
-                else
-                    -- Equip rod if not already equipped
-                    local rod = farm.find_rod()
-                    if rod then
-                        rod.Parent = character
-                    end
+                end
+            end
+
+            -- If not holding a rod, equip it from backpack
+            if not hasRodEquipped then
+                local rod = farm.find_rod_in_backpack()
+                if rod then
+                    rod.Parent = character
                 end
             end
         end
