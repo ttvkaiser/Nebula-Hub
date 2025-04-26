@@ -13,7 +13,7 @@ screenGui.Parent = playerGui
 
 --// Add blur effect
 local blur = Instance.new("BlurEffect")
-blur.Size = 35
+blur.Size = 100
 blur.Name = "NebulaHubBlur"
 blur.Parent = Lighting
 
