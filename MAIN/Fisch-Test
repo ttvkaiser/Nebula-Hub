@@ -636,7 +636,7 @@ end
 
 local farm = {reel_tick = nil, cast_tick = nil}
 
-local Toggle_AutoRod = Tabs.Main2:AddToggle("AutoRod", {Title = "Auto Equip Rod", Default = false})
+local Toggle_AutoRod = Tabs.Main2:AddToggle("AutoRod", {Title = "Auto Equip Rod [BETA]", Default = false})
 
 Toggle_AutoRod:OnChanged(function()
     print("Auto Equip Rod:", Options.AutoRod.Value)
@@ -664,7 +664,7 @@ Toggle_AutoRod:OnChanged(function()
     end)
 end)
 
-local Toggle_AutoCast = Tabs.Main2:AddToggle("AutoCast", {Title = "Auto Cast", Default = false})
+local Toggle_AutoCast = Tabs.Main2:AddToggle("AutoCast", {Title = "Auto Cast [BETA]", Default = false})
 
 Toggle_AutoCast:OnChanged(function()
     print("Auto Cast:", Options.AutoCast.Value)
@@ -687,7 +687,7 @@ Toggle_AutoCast:OnChanged(function()
     end)
 end)
 
-local Toggle_AutoShake = Tabs.Main2:AddToggle("AutoShake", {Title = "Auto Shake", Default = false})
+local Toggle_AutoShake = Tabs.Main2:AddToggle("AutoShake", {Title = "Auto Shake [BETA]", Default = false})
 
 Toggle_AutoShake:OnChanged(function()
     print("Auto Shake:", Options.AutoShake.Value)
@@ -718,7 +718,7 @@ Toggle_AutoShake:OnChanged(function()
     end)
 end)
 
-local Toggle_AutoReel = Tabs.Main2:AddToggle("AutoReel", {Title = "Auto Reel", Default = false})
+local Toggle_AutoReel = Tabs.Main2:AddToggle("AutoReel", {Title = "Auto Reel [BETA]", Default = false})
 
 Toggle_AutoReel:OnChanged(function()
     print("Auto Reel:", Options.AutoReel.Value)
