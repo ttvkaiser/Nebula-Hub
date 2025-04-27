@@ -510,7 +510,44 @@ end)
 
 Options.MyToggle3:SetValue(false)
 
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
 
+-- Helper function to get all player names (excluding yourself)
+local function getPlayerNames()
+    local names = {}
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            table.insert(names, player.Name)
+        end
+    end
+    return names
+end
+
+-- === Third Dropdown (Teleport to Players) ===
+local Dropdown2 = Tabs.Teleport:AddDropdown("TeleportDropdown", {
+    Title = "Teleport to Players",
+    Values = getPlayerNames(),
+    Multi = false,
+    Default = 1,
+})
+
+-- Update list if players join or leave
+Players.PlayerAdded:Connect(function()
+    Dropdown2:SetValues(getPlayerNames())
+end)
+
+Players.PlayerRemoving:Connect(function()
+    Dropdown2:SetValues(getPlayerNames())
+end)
+
+-- Teleport to selected player
+Dropdown2:OnChanged(function(targetName)
+    local targetPlayer = Players:FindFirstChild(targetName)
+    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        LocalPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 3, 0)
+    end
+end)
 
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
