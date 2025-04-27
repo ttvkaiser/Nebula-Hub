@@ -508,7 +508,49 @@ end)
 
 Options.MyToggle3:SetValue(false)
 
+local Toggle2 = Tabs.Main2:AddToggle("MyToggle2", {Title = "Auto Punch", Default = false})
 
+local AutoPunchRunning = false
+
+Toggle2:OnChanged(function()
+    AutoPunchRunning = Toggle2.Value
+
+    if AutoPunchRunning then
+        print("Auto Punch Enabled")
+
+        -- Find the correct RemoteEvent for Muscle Legends
+        local Player = game.Players.LocalPlayer
+        local MuscleRemote = nil
+
+        for _, v in pairs(game:GetDescendants()) do
+            if v:IsA("RemoteEvent") and (v.Name:lower():find("gain") or v.Name:lower():find("muscle")) then
+                MuscleRemote = v
+                break
+            end
+        end
+
+        if MuscleRemote then
+            task.spawn(function()
+                while AutoPunchRunning do
+                    task.wait(0.15) -- faster spam
+                    local success, errorMessage = pcall(function()
+                        MuscleRemote:FireServer("GainMuscle")  -- Make sure this argument is correct
+                    end)
+                    if not success then
+                        warn("Error with Auto Punch: " .. errorMessage)
+                    end
+                end
+            end)
+        else
+            warn("Couldn't find Muscle Remote!")
+        end
+
+    else
+        print("Auto Punch Disabled")
+    end
+end)
+
+Options.MyToggle2:SetValue(false)
 
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
