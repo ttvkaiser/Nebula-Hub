@@ -512,7 +512,7 @@ Options.MyToggle3:SetValue(false)
 
 local Dropdown3 = Tabs.Teleport:AddDropdown("TeleportDropdown", {
     Title = "Teleport to Area's",
-    Values = {"GunShop",},
+    Values = {"GunShop", "Dealership", },
     Multi = false,
     Default = 1,
 })
@@ -525,6 +525,7 @@ Dropdown3:OnChanged(function(Value)
     -- Teleport locations
     local teleportLocations = {
         GunShop = Vector3.new(-1003.4, 253.6, -816.1),
+        Dealership = Vector3.new(-381.9, 253.2, -1218.3),
         -- Add the rest as needed
     }
 
