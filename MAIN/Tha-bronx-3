@@ -568,6 +568,56 @@ end)
 
 Options.Toggle_Hitboxes:SetValue(false)  -- Default state of the toggle
 
+local Toggle_RemoveDamage = Tabs.AutoKill:AddToggle("Toggle_RemoveDamage", {Title = "Remove Damage Toggle", Default = false })
+
+-- Function to enable damage prevention
+local function enableDamagePrevention(character)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid:SetAttribute("PreventDamage", true)  -- Set attribute to prevent damage
+    end
+end
+
+-- Function to disable damage prevention
+local function disableDamagePrevention(character)
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid:SetAttribute("PreventDamage", nil)  -- Remove the prevent damage attribute
+    end
+end
+
+-- Prevent damage using the custom attribute
+game:GetService("Players").PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        local humanoid = character:WaitForChild("Humanoid")
+        humanoid.Died:Connect(function()
+            if humanoid:GetAttribute("PreventDamage") then
+                -- Prevent death event when damage is being blocked
+                print("Damage was prevented!")
+                humanoid.Health = humanoid.MaxHealth -- Restore full health if damage is blocked
+            end
+        end)
+    end)
+end)
+
+-- Listen for changes to the toggle
+Toggle_RemoveDamage:OnChanged(function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+
+    if Toggle_RemoveDamage.Value then
+        -- Enable damage prevention when the toggle is turned on
+        enableDamagePrevention(character)
+        print("Damage prevention enabled!")
+    else
+        -- Disable damage prevention when the toggle is turned off
+        disableDamagePrevention(character)
+        print("Damage prevention disabled!")
+    end
+end)
+
+Options.Toggle_RemoveDamage:SetValue(false)  -- Default state of the toggle
+
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
