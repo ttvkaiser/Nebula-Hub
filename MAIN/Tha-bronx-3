@@ -510,6 +510,38 @@ end)
 
 Options.MyToggle3:SetValue(false)
 
+local Dropdown3 = Tabs.Teleport:AddDropdown("TeleportDropdown", {
+    Title = "Teleport to Area's",
+    Values = {"GunShop",},
+    Multi = false,
+    Default = 1,
+})
+
+Dropdown3:SetValue("Spawn")
+
+Dropdown3:OnChanged(function(Value)
+    print("Dropdown changed:", Value)
+
+    -- Teleport locations
+    local teleportLocations = {
+        GunShop = Vector3.new(-1003.4, 253.6, -816.1),
+        -- Add the rest as needed
+    }
+
+    local targetPosition = teleportLocations[Value]
+    if targetPosition then
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+
+        if character and character:FindFirstChild("HumanoidRootPart") then
+            character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+            print("Teleported to:", targetPosition)
+        end
+    else
+        print("Invalid teleport location!")
+    end
+end)
+
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
