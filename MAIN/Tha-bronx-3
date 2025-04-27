@@ -568,7 +568,7 @@ end)
 
 Options.Toggle_Hitboxes:SetValue(false)  -- Default state of the toggle
 
-local Toggle_RemoveDamage = Tabs.AutoKill:AddToggle("Toggle_RemoveDamage", {Title = "Remove Damage Toggle", Default = false })
+local Toggle_RemoveDamage = Tabs.Miscellaneous:AddToggle("Toggle_RemoveDamage", {Title = "Remove Damage", Default = false })
 
 -- Function to enable damage prevention
 local function enableDamagePrevention(character)
