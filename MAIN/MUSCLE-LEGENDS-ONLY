@@ -508,34 +508,7 @@ end)
 
 Options.MyToggle3:SetValue(false)
 
--- Create Toggle
-local Toggle_Punch = Tabs.Main2:AddToggle("MyToggle", {Title = "Auto Punch", Default = false})
 
-local punching = false
-local punchLoop
-
--- When Toggle is changed
-Toggle_Punch:OnChanged(function()
-    punching = Options.MyToggle.Value
-
-    if punching then
-        -- Start Auto Punching
-        punchLoop = task.spawn(function()
-            while punching do
-                -- Fire the punch event
-                game:GetService("ReplicatedStorage").Events.punch:FireServer()
-                task.wait(0.1) -- punch every 0.1 seconds
-            end
-        end)
-    else
-        -- Stop Auto Punching
-        if punchLoop then
-            task.cancel(punchLoop)
-        end
-    end
-end)
-
-Options.MyToggle:SetValue(false)
 
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
