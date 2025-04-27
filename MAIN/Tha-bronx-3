@@ -524,13 +524,14 @@ local function expandHitboxes(character)
     leftLeg.Size = Vector3.new(2, 3, 2) -- Example for expanding leg hitbox
     rightLeg.Size = Vector3.new(2, 3, 2) -- Example for expanding leg hitbox
 
-    -- Optionally, create a custom hitbox
+    -- Optionally, create a custom hitbox (Transparent Red)
     local customHitbox = Instance.new("Part")
-    customHitbox.Size = Vector3.new(8, 12, 8) -- Adjust size to your needs
+    customHitbox.Size = Vector3.new(4, 6, 4) -- Adjust size to your needs
     customHitbox.Position = character.PrimaryPart.Position
     customHitbox.Anchored = true
     customHitbox.CanCollide = false
-    customHitbox.Transparency = 0.5
+    customHitbox.Transparency = 0.5 -- Makes it semi-transparent
+    customHitbox.BrickColor = BrickColor.new("Bright red") -- Red color
     customHitbox.Parent = game.Workspace
 end
 
