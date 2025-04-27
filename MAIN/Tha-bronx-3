@@ -184,6 +184,7 @@ local Tabs = {
     AutoPick = Window:AddTab({ Title = "| Auto Pick Up Items", Icon = "upload" }),
     AutoFarm = Window:AddTab({ Title = "| Farms Money", Icon = "dollar-sign" }),
     AutoKill = Window:AddTab({ Title = "| Kill Helper", Icon = "skull" }),
+    Teleport = Window:AddTab({ Title = "| Teleport", Icon = "map-pin" }),
     Miscellaneous = Window:AddTab({ Title = "| Miscellaneous", Icon = "command" }),
     Settings = Window:AddTab({ Title = "| Settings", Icon = "settings" })
 }
