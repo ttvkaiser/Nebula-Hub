@@ -652,3 +652,8 @@ SaveManager:LoadAutoloadConfig()
 		end)
 	end
 end)
+
+getKeyButton.MouseButton1Click:Connect(function()
+	setclipboard("https://yourkeylink.com")
+	print("Copied link to clipboard!")
+end)
