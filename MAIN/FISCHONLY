@@ -644,6 +644,11 @@ Fluent:Notify({
 -- which has been marked to be one that auto loads!
 SaveManager:LoadAutoloadConfig()	
 
+getKeyButton.MouseButton1Click:Connect(function()
+	setclipboard("https://yourkeylink.com")
+	print("Copied link to clipboard!")
+end)
+
 	else
 		task.spawn(function()
 			pcall(function()
@@ -651,9 +656,4 @@ SaveManager:LoadAutoloadConfig()
 			end)
 		end)
 	end
-end)
-
-getKeyButton.MouseButton1Click:Connect(function()
-	setclipboard("https://yourkeylink.com")
-	print("Copied link to clipboard!")
 end)
