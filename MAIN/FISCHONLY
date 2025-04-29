@@ -534,7 +534,7 @@ local LocalPlayer = Players.LocalPlayer
 
 local noclipConnection
 
-local Toggle2 = Tabs.Home:AddToggle("MyToggle3", {
+local Toggle2 = Tabs.Home:AddToggle("MyToggle2", {
     Title = "No Clip",
     Default = false
 })
