@@ -589,11 +589,17 @@ Fluent:Notify({
 -- which has been marked to be one that auto loads!
 SaveManager:LoadAutoloadConfig()	
 		
-			else
+else
 		task.spawn(function()
 			pcall(function()
 				Players.LocalPlayer:Kick("INVALID KEY!! JOIN DISCORD SERVER TO KNOW KEY!!")
 			end)
 		end)
 	end
+end)
+
+--// Get Key Button Function
+getKeyButton.MouseButton1Click:Connect(function()
+	setclipboard("https://yourkeylink.com") -- << Replace this with your real link!
+	print("Copied link to clipboard!")
 end)
