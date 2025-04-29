@@ -149,14 +149,14 @@ getKeyButton.BackgroundColor3 = Color3.fromRGB(74, 97, 164)
 getKeyButton.BorderSizePixel = 0
 getKeyButton.Parent = frame
 
---// Rounded Corners
+--// Rounded Corners for Buttons and Input
 for _, element in ipairs({textbox, checkButton, getKeyButton}) do
 	local uicorner = Instance.new("UICorner")
 	uicorner.CornerRadius = UDim.new(0, 6)
 	uicorner.Parent = element
 end
 
--- Inside the "Check Key" button callback:
+--// Check Key Button Function
 checkButton.MouseButton1Click:Connect(function()
 	if textbox.Text == "NebulaHub_111" then
 		local blur = Lighting:FindFirstChild("NebulaHubBlur")
@@ -644,11 +644,6 @@ Fluent:Notify({
 -- which has been marked to be one that auto loads!
 SaveManager:LoadAutoloadConfig()	
 
-getKeyButton.MouseButton1Click:Connect(function()
-	setclipboard("https://yourkeylink.com")
-	print("Copied link to clipboard!")
-end)
-
 	else
 		task.spawn(function()
 			pcall(function()
@@ -656,4 +651,10 @@ end)
 			end)
 		end)
 	end
+end)
+
+--// Get Key Button Function
+getKeyButton.MouseButton1Click:Connect(function()
+	setclipboard("https://yourkeylink.com") -- << Replace this with your real link!
+	print("Copied link to clipboard!")
 end)
