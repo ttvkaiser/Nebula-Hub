@@ -600,6 +600,6 @@ end)
 
 --// Get Key Button Function
 getKeyButton.MouseButton1Click:Connect(function()
-	setclipboard("https://yourkeylink.com") -- << Replace this with your real link!
+	setclipboard("https://discord.gg/m9zq89RFhP") -- << Replace this with your real link!
 	print("Copied link to clipboard!")
 end)
