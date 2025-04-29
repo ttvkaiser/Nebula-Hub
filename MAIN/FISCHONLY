@@ -467,21 +467,8 @@ Options.MyToggle:SetValue(false)
 
     Tabs.Main2:AddParagraph({
         Title = "ABOUT AUTO FISHING!",
-        Content = "This is Auto Fishing is still in development!"
+        Content = "IT MIGHT KICK YOU, BUT IT IS OUR SAFTEY MODE IF TURNED OFF YOU HAVE A HIGHER CHANCE OF BEING BANNED. /n SO YOU NIGGAS BETTER NOT GET MAD!!"
     })
-
-local Toggle2 = Tabs.Main2:AddToggle("SecondToggle", {
-Title = "Auto Fish [IN TESTING]",
-Default = false
-})
-
-Toggle2:OnChanged(function()
-local isEnabled = Options.SecondToggle.Value
-print("SecondToggle changed:", isEnabled)
--- Your logic for what this second toggle should do
-end)
-
-Options.SecondToggle:SetValue(false)
 
 local Dropdown2 = Tabs.Teleport:AddDropdown("TeleportDropdown", {
     Title = "Teleport Islands!",
@@ -547,7 +534,7 @@ local LocalPlayer = Players.LocalPlayer
 
 local noclipConnection
 
-local Toggle3 = Tabs.Home:AddToggle("MyToggle3", {
+local Toggle2 = Tabs.Home:AddToggle("MyToggle3", {
     Title = "No Clip",
     Default = false
 })
@@ -557,8 +544,8 @@ local function getCharacter()
     return LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 end
 
-Toggle3:OnChanged(function()
-    if Options.MyToggle3.Value then
+Toggle2:OnChanged(function()
+    if Options.MyToggle2.Value then
         -- Enable NoClip
         noclipConnection = RunService.Stepped:Connect(function()
             local Character = getCharacter()
@@ -586,7 +573,7 @@ Toggle3:OnChanged(function()
     end
 end)
 
-Options.MyToggle3:SetValue(false)
+Options.MyToggle2:SetValue(false)
 
 
 
@@ -665,7 +652,7 @@ local farm = {
 }
 
 --// TOGGLE 1: Auto Equip Rod
-local Toggle_AutoRod = Tabs.Main2:AddToggle("AutoRod", {Title = "Auto Equip Rod [BETA]", Default = false})
+local Toggle_AutoRod = Tabs.Main2:AddToggle("AutoRod", {Title = "Auto Equip Rod", Default = false})
 
 Toggle_AutoRod:OnChanged(function()
     print("Auto Equip Rod:", Options.AutoRod.Value)
@@ -712,7 +699,7 @@ function find_rod()
 end
 
 --// Auto Cast Toggle
-local Toggle_AutoCast = Tabs.Main2:AddToggle("AutoCast", {Title = "Auto Cast [BETA]", Default = false})
+local Toggle_AutoCast = Tabs.Main2:AddToggle("AutoCast", {Title = "Auto Cast", Default = false})
 
 Toggle_AutoCast:OnChanged(function()
     print("Auto Cast:", Options.AutoCast.Value)
@@ -761,7 +748,7 @@ Toggle_AutoShake:OnChanged(function()
 end)
                         
 
-local Toggle_AutoReel = Tabs.Main2:AddToggle("AutoReel", {Title = "Auto Reel [BETA]", Default = false})
+local Toggle_AutoReel = Tabs.Main2:AddToggle("AutoReel", {Title = "Auto Reel", Default = false})
 
 Toggle_AutoReel:OnChanged(function()
     print("Auto Reel:", Options.AutoReel.Value)
