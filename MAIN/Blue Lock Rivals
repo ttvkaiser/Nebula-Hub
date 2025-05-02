@@ -1,0 +1,164 @@
+--// Services
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local UserInputService = game:GetService("UserInputService")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+--// Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "KeySystemUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+--// Add blur effect
+local blur = Instance.new("BlurEffect")
+blur.Size = 100
+blur.Name = "NebulaHubBlur"
+blur.Parent = Lighting
+
+--// Main Frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 400, 0, 250)
+frame.Position = UDim2.new(0.5, -200, 0.5, -125)
+frame.BackgroundColor3 = Color3.fromRGB(46, 27, 73)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+--// Rounded corners
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 15)
+uiCorner.Parent = frame
+
+--// Title
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -40, 0, 30)
+title.Position = UDim2.new(0, 20, 0, 10)
+title.BackgroundTransparency = 1
+title.Text = "Nebula Hub - <b>Key System</b>"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 20
+title.RichText = true
+title.Parent = frame
+
+--// Dragging logic
+local dragging, dragInput, dragStart, startPos
+
+local function update(input)
+	local delta = input.Position - dragStart
+	frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
+
+title.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = frame.Position
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+title.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		dragInput = input
+	end
+end)
+
+title.InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = false
+		dragInput = nil
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+		update(input)
+	end
+end)
+
+--// Close button
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -35, 0, 5)
+closeButton.Text = "×"
+closeButton.Font = Enum.Font.GothamBold
+closeButton.TextSize = 50
+closeButton.TextColor3 = Color3.fromRGB(255, 80, 80)
+closeButton.BackgroundTransparency = 1
+closeButton.Parent = frame
+
+closeButton.MouseButton1Click:Connect(function()
+	local blur = Lighting:FindFirstChild("NebulaHubBlur")
+	if blur then blur:Destroy() end
+	screenGui:Destroy()
+end)
+
+--// Info Text
+local info = Instance.new("TextLabel")
+info.Size = UDim2.new(1, -40, 0, 40)
+info.Position = UDim2.new(0, 20, 0, 50)
+info.Text = "The Key will last until I personally TTVKAISER change it\nSo Enjoy Our Script!!"
+info.TextColor3 = Color3.fromRGB(180, 180, 255)
+info.BackgroundTransparency = 1
+info.TextSize = 14
+info.Font = Enum.Font.Gotham
+info.TextWrapped = true
+info.TextYAlignment = Enum.TextYAlignment.Top
+info.Parent = frame
+
+--// Input box
+local textbox = Instance.new("TextBox")
+textbox.Size = UDim2.new(1, -40, 0, 40)
+textbox.Position = UDim2.new(0, 20, 0, 110)
+textbox.PlaceholderText = "Enter Your Key.."
+textbox.Text = ""
+textbox.TextSize = 16
+textbox.Font = Enum.Font.Gotham
+textbox.TextColor3 = Color3.new(1, 1, 1)
+textbox.BackgroundColor3 = Color3.fromRGB(74, 97, 164)
+textbox.BorderSizePixel = 0
+textbox.Parent = frame
+
+--// Check Key Button
+local checkButton = Instance.new("TextButton")
+checkButton.Size = UDim2.new(0.5, -25, 0, 40)
+checkButton.Position = UDim2.new(0, 20, 1, -60)
+checkButton.Text = "Check Key"
+checkButton.Font = Enum.Font.GothamBold
+checkButton.TextSize = 16
+checkButton.TextColor3 = Color3.new(1, 1, 1)
+checkButton.BackgroundColor3 = Color3.fromRGB(72, 155, 207)
+checkButton.BorderSizePixel = 0
+checkButton.Parent = frame
+
+--// Get Key Button
+local getKeyButton = Instance.new("TextButton")
+getKeyButton.Size = UDim2.new(0.5, -25, 0, 40)
+getKeyButton.Position = UDim2.new(0.5, 5, 1, -60)
+getKeyButton.Text = "Get Key"
+getKeyButton.Font = Enum.Font.GothamBold
+getKeyButton.TextSize = 16
+getKeyButton.TextColor3 = Color3.new(1, 1, 1)
+getKeyButton.BackgroundColor3 = Color3.fromRGB(74, 97, 164)
+getKeyButton.BorderSizePixel = 0
+getKeyButton.Parent = frame
+
+--// Rounded Corners
+for _, element in ipairs({textbox, checkButton, getKeyButton}) do
+	local uicorner = Instance.new("UICorner")
+	uicorner.CornerRadius = UDim.new(0, 6)
+	uicorner.Parent = element
+end
+
+-- Inside the "Check Key" button callback:
+checkButton.MouseButton1Click:Connect(function()
+	if textbox.Text == "NebulaHub_111" then
+		local blur = Lighting:FindFirstChild("NebulaHubBlur")
+		if blur then blur:Destroy() end
+		screenGui:Destroy()
