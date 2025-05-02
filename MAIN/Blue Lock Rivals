@@ -162,3 +162,18 @@ checkButton.MouseButton1Click:Connect(function()
 		local blur = Lighting:FindFirstChild("NebulaHubBlur")
 		if blur then blur:Destroy() end
 		screenGui:Destroy()
+
+else
+		task.spawn(function()
+			pcall(function()
+				Players.LocalPlayer:Kick("INVALID KEY!! JOIN DISCORD SERVER TO KNOW KEY!!")
+			end)
+		end)
+	end
+end)
+
+--// Get Key Button Function
+getKeyButton.MouseButton1Click:Connect(function()
+	setclipboard("https://discord.gg/m9zq89RFhP") -- << Replace this with your real link!
+	print("Copied link to clipboard!")
+end)
