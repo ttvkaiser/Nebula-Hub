@@ -775,6 +775,87 @@ Toggle_AutoReel:OnChanged(function()
     end)
 end)
 
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+-- ESP storage
+local espConnections = {}
+
+-- ESP functions
+local function createESP(player)
+    if player == LocalPlayer then return end
+    local character = player.Character or player.CharacterAdded:Wait()
+    local head = character:WaitForChild("Head")
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "NebulaESP"
+    billboard.Adornee = head
+    billboard.Size = UDim2.new(0, 200, 0, 50)
+    billboard.StudsOffset = Vector3.new(0, 2, 0)
+    billboard.AlwaysOnTop = true
+    billboard.Parent = head
+
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, 0, 1, 0)
+    label.BackgroundTransparency = 1
+    label.TextColor3 = Color3.new(1, 1, 1)
+    label.TextStrokeTransparency = 0
+    label.Font = Enum.Font.SourceSansBold
+    label.TextScaled = true
+    label.Parent = billboard
+
+    espConnections[player] = RunService.RenderStepped:Connect(function()
+        if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+        local distance = (LocalPlayer.Character.HumanoidRootPart.Position - character.HumanoidRootPart.Position).Magnitude
+        local health = character:FindFirstChildOfClass("Humanoid") and math.floor(character:FindFirstChildOfClass("Humanoid").Health) or 0
+        label.Text = string.format("%s\n%.0f studs\nHealth: %d", player.Name, distance, health)
+    end)
+end
+
+local function removeESP()
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player.Character and player.Character:FindFirstChild("Head") then
+            local esp = player.Character.Head:FindFirstChild("NebulaESP")
+            if esp then esp:Destroy() end
+        end
+    end
+    for _, conn in pairs(espConnections) do
+        conn:Disconnect()
+    end
+    espConnections = {}
+end
+
+local function refreshESP()
+    removeESP()
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player.Character then
+            createESP(player)
+        end
+        player.CharacterAdded:Connect(function()
+            task.wait(1)
+            createESP(player)
+        end)
+    end
+end
+
+-- Fluent UI Toggle
+local Toggle_PlayerEsp = Tabs.Main:AddToggle("PlayerEspToggle", {
+    Title = "Player ESP",
+    Default = false
+})
+
+Toggle_PlayerEsp:OnChanged(function()
+    print("Toggle changed:", Options.PlayerEspToggle.Value)
+    if Options.PlayerEspToggle.Value then
+        refreshESP()
+    else
+        removeESP()
+    end
+end)
+
+Options.PlayerEspToggle:SetValue(false)
+
 local Toggle_LockPosition = Tabs.Miscellaneous:AddToggle("LockPosition", {Title = "Lock Position", Default = false })
 
 Toggle_LockPosition:OnChanged(function()
