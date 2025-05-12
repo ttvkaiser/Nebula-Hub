@@ -840,7 +840,7 @@ local function refreshESP()
 end
 
 -- Fluent UI Toggle
-local Toggle_PlayerEsp = Tabs.Main:AddToggle("PlayerEspToggle", {
+local Toggle_PlayerEsp = Tabs.Miscellaneous:AddToggle("PlayerEspToggle", {
     Title = "Player ESP",
     Default = false
 })
