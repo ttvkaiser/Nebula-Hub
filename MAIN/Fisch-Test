@@ -828,15 +828,27 @@ end
 
 local function refreshESP()
     removeESP()
+
+    -- Add ESP to all current players
     for _, player in ipairs(Players:GetPlayers()) do
-        if player.Character then
-            createESP(player)
+        if player ~= LocalPlayer then
+            if player.Character then
+                createESP(player)
+            end
+            player.CharacterAdded:Connect(function()
+                task.wait(1)
+                createESP(player)
+            end)
         end
+    end
+
+    -- Ensure ESP is added for new players who join later
+    Players.PlayerAdded:Connect(function(player)
         player.CharacterAdded:Connect(function()
             task.wait(1)
             createESP(player)
         end)
-    end
+    end)
 end
 
 -- Fluent UI Toggle
