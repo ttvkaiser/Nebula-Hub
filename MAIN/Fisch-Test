@@ -3,7 +3,7 @@ local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.
 local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/InterfaceManager.luau"))()
  
 local Window = Library:CreateWindow{
-    Title = `Overlord Hub | Game: Brookhaven | Version {Library.Version}`,
+    Title = `Nebula Hub | Game: Fisch | Version TEST`,
     SubTitle = "by overlord66-6",
     TabWidth = 160,
     Size = UDim2.fromOffset(830, 525),
