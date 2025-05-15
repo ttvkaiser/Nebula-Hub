@@ -3,8 +3,8 @@ local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.
 local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/InterfaceManager.luau"))()
  
 local Window = Library:CreateWindow{
-    Title = `Nebula Hub | Game: Fisch | Version TEST`,
-    SubTitle = "by overlord66-6",
+    Title = `Nebula Hub | Game: Fisch | Version [TEST]`,
+    SubTitle = "by ttvkaiser",
     TabWidth = 160,
     Size = UDim2.fromOffset(830, 525),
     Resize = true, -- Resize this ^ Size according to a 1920x1080 screen, good for mobile users but may look weird on some devices
@@ -210,7 +210,7 @@ Tabs.Home:CreateParagraph("Aligned Paragraph", {
 local config = {
     fpsCap = 9999,
     disableChat = false,
-    enableBigButton = false,
+    enableBigButton = true,
     bigButtonScaleFactor = 2,
     shakeSpeed = 0.05,
     FreezeWhileFishing = true
