@@ -273,7 +273,6 @@ Toggle_AutoRod:OnChanged(function()
         while Options.AutoRod.Value do
             task.wait(0.2)
 
-           
             local character = LocalPlayer.Character
             if not character then continue end
 
