@@ -199,7 +199,7 @@ ToggleNoClip:OnChanged(function()
     end
 end)
 
-Tabs.Home:CreateParagraph("Aligned Paragraph", {
+Tabs.Main:CreateParagraph("Aligned Paragraph", {
     Title = "---AUTO FISHING---",
     Content = "Auto Fishing works. Only downside is that it kicks you if rods change. ITS MY ANTI-CHEAT!!\n Don't be mad! I'll fix and I'll add Instant reel soon!",
     TitleAlignment = "Middle",
