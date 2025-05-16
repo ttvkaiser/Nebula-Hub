@@ -313,19 +313,25 @@ end
 --// Auto Cast Toggle
 local Toggle_AutoCast = Tabs.Main:AddToggle("AutoCast", {Title = "Auto Cast", Default = false})
 
+local autoCastRunning = false
+
 Toggle_AutoCast:OnChanged(function()
     print("Auto Cast:", Options.AutoCast.Value)
 
-    task.spawn(function()
-        while Options.AutoCast.Value do
-            task.wait(1)
+    if Options.AutoCast.Value and not autoCastRunning then
+        autoCastRunning = true
+        task.spawn(function()
+            while Options.AutoCast.Value do
+                task.wait(1)
 
-            local rod = find_rod()
-            if rod then
-                rod.events.cast:FireServer(100, 1)
+                local rod = find_rod()
+                if rod then
+                    rod.events.cast:FireServer(100, 1)
+                end
             end
-        end
-    end)
+            autoCastRunning = false
+        end)
+    end
 end)
 
 local Toggle_AutoShake = Tabs.Main:AddToggle("AutoShake", {Title = "Fast Auto Shake", Default = false})
