@@ -18,7 +18,7 @@ local Window = Library:CreateWindow{
 local Tabs = {
     Home = Window:CreateTab{
         Title = "Home",
-        Icon = "home"
+        Icon = "house"
     },
 	Main = Window:CreateTab{
         Title = "Main",
