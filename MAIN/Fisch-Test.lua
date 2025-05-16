@@ -201,7 +201,7 @@ end)
 
 Tabs.Main:CreateParagraph("Aligned Paragraph", {
     Title = "---AUTO FISHING---",
-    Content = "Auto Fishing works. Only downside is that it kicks you if rods change. ITS MY ANTI-CHEAT!!\n Don't be mad! I'll fix and I'll add Instant reel soon!",
+    Content = "Auto Fishing works. I'll add Instant reel soon!",
     TitleAlignment = "Middle",
     ContentAlignment = Enum.TextXAlignment.Center
 })
