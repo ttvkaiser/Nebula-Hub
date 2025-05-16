@@ -102,7 +102,7 @@ Tabs.Home:CreateParagraph("Aligned Paragraph", {
 
 local speed = 16 -- Default speed
 
--- Input first
+-- Input field
 local Input = Tabs.Home:AddInput("Input", {
     Title = "Speed Input",
     Default = tostring(speed),
@@ -114,38 +114,48 @@ local Input = Tabs.Home:AddInput("Input", {
         if num then
             speed = num
             print("Speed set to:", speed)
-
-            -- If toggle is on, apply new speed
             if Options.MyToggle.Value then
-                local player = game.Players.LocalPlayer
-                if player and player.Character and player.Character:FindFirstChildOfClass("Humanoid") then
-                    player.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = speed
-                end
+                applySpeed()
             end
         end
     end
 })
 
--- Then toggle
+-- Toggle
 local Toggle = Tabs.Home:AddToggle("MyToggle", {
     Title = "Enable Speed",
     Default = false
 })
 
-Toggle:OnChanged(function()
-    print("Toggle changed:", Options.MyToggle.Value)
-
+-- Utility to apply speed
+local function applySpeed()
     local player = game.Players.LocalPlayer
-    if player and player.Character and player.Character:FindFirstChildOfClass("Humanoid") then
-        if Options.MyToggle.Value then
-            player.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = speed
-        else
-            player.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = 16 -- Default Roblox WalkSpeed
+    if not player then return end
+
+    local char = player.Character
+    if char then
+        local humanoid = char:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.WalkSpeed = Options.MyToggle.Value and speed or 16
         end
     end
+end
+
+-- Toggle handler
+Toggle:OnChanged(function()
+    print("Toggle changed:", Options.MyToggle.Value)
+    applySpeed()
 end)
 
-Options.MyToggle:SetValue(false)
+-- Reapply speed on respawn
+local player = game.Players.LocalPlayer
+player.CharacterAdded:Connect(function(char)
+    char:WaitForChild("Humanoid") -- Ensure humanoid exists
+    if Options.MyToggle.Value then
+        task.wait(0.1) -- slight delay to ensure stability
+        applySpeed()
+    end
+end)
 
 -- Infinite Jump Toggle
 local ToggleInfiniteJump = Tabs.Home:AddToggle("Toggle_InfiniteJump", {Title = "Infinite Jump", Default = false})
