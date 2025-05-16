@@ -206,7 +206,6 @@ Tabs.Main:CreateParagraph("Aligned Paragraph", {
     ContentAlignment = Enum.TextXAlignment.Center
 })
 
--- Config
 local config = {
     fpsCap = 9999,
     disableChat = false,
@@ -233,6 +232,7 @@ if config.disableChat then
     StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
 end
 
+-- Utility functions
 local utility = {blacklisted_attachments = {"bob", "bodyweld"}}
 
 function utility.simulate_click(x, y, mb)
@@ -248,13 +248,13 @@ function utility.move_fix(bobber)
     end
 end
 
---// FARM BASE
+-- Farm base
 local farm = {
     reel_tick = nil,
     cast_tick = nil,
 
     find_rod_in_backpack = function()
-        for _, tool in ipairs(LocalPlayer.Backpack:GetChildren()) do
+        for _, tool in ipairs(localplayer.Backpack:GetChildren()) do
             if tool:IsA("Tool") and tool.Name:lower():find("rod") then
                 return tool
             end
@@ -263,7 +263,7 @@ local farm = {
     end
 }
 
---// TOGGLE 1: Auto Equip Rod
+-- Auto Equip Rod Toggle
 local Toggle_AutoRod = Tabs.Main:AddToggle("AutoRod", {Title = "Auto Equip Rod", Default = false})
 
 Toggle_AutoRod:OnChanged(function()
@@ -273,7 +273,7 @@ Toggle_AutoRod:OnChanged(function()
         while Options.AutoRod.Value do
             task.wait(0.2)
 
-            local character = LocalPlayer.Character
+            local character = localplayer.Character
             if not character then continue end
 
             -- Check if already holding a rod
@@ -296,9 +296,9 @@ Toggle_AutoRod:OnChanged(function()
     end)
 end)
 
---// Helper function to find the rod
+-- Helper function to find the equipped rod
 function find_rod()
-    local character = LocalPlayer.Character
+    local character = localplayer.Character
     if not character then return nil end
 
     for _, tool in ipairs(character:GetChildren()) do
@@ -310,7 +310,7 @@ function find_rod()
     return nil
 end
 
---// Auto Cast Toggle
+-- Auto Cast Toggle
 local Toggle_AutoCast = Tabs.Main:AddToggle("AutoCast", {Title = "Auto Cast", Default = false})
 
 local autoCastRunning = false
@@ -325,7 +325,7 @@ Toggle_AutoCast:OnChanged(function()
                 task.wait(1)
 
                 local rod = find_rod()
-                if rod then
+                if rod and rod:FindFirstChild("events") and rod.events:FindFirstChild("cast") then
                     rod.events.cast:FireServer(100, 1)
                 end
             end
@@ -334,7 +334,7 @@ Toggle_AutoCast:OnChanged(function()
     end
 end)
 
-local Toggle_AutoShake = Tabs.Main:AddToggle("AutoShake", {Title = "Fast Auto Shake", Default = false})
+local Toggle_AutoShake = Tabs.Main:AddToggle("AutoShake", {Title = "Auto Shake", Default = false})
 
 Toggle_AutoShake:OnChanged(function()
     print("Auto Shake:", Options.AutoShake.Value)
