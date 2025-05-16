@@ -75,7 +75,7 @@ Tabs.Home:AddButton({
     Description = "Click to copy our Discord invite link",
     Callback = function()
         -- Copy to clipboard
-        setclipboard("https://discord.gg/KsVAvNDV")
+        setclipboard("Nothing to see here...")
 
         -- Show dialog confirmation
         Window:Dialog({
