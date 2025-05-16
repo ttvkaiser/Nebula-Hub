@@ -3,7 +3,7 @@ local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.
 local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/InterfaceManager.luau"))()
  
 local Window = Library:CreateWindow{
-    Title = `Nebula Hub | Game: Fisch | Version [TEST]`,
+    Title = `Nebula Hub | Game: Fisch | Version [v1.4.0]`,
     SubTitle = "by ttvkaiser",
     TabWidth = 160,
     Size = UDim2.fromOffset(1087, 690.5),
