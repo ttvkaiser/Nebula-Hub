@@ -334,6 +334,41 @@ Tabs.Teleport:CreateButton{
     end
 }
 
+Tabs.Teleport:CreateParagraph("Aligned Paragraph", {
+    Title = "Tower 2",
+    Content = "",
+    TitleAlignment = "Middle",
+    ContentAlignment = Enum.TextXAlignment.Center
+})
+
+Tabs.Teleport:CreateParagraph("Aligned Paragraph", {
+    Title = "Tower 3",
+    Content = "",
+    TitleAlignment = "Middle",
+    ContentAlignment = Enum.TextXAlignment.Center
+})
+
+Tabs.Teleport:CreateParagraph("Aligned Paragraph", {
+    Title = "Tower 4",
+    Content = "",
+    TitleAlignment = "Middle",
+    ContentAlignment = Enum.TextXAlignment.Center
+})
+
+Tabs.Teleport:CreateParagraph("Aligned Paragraph", {
+    Title = "Tower 5",
+    Content = "",
+    TitleAlignment = "Middle",
+    ContentAlignment = Enum.TextXAlignment.Center
+})
+
+Tabs.Teleport:CreateParagraph("Aligned Paragraph", {
+    Title = "Tower 6",
+    Content = "",
+    TitleAlignment = "Middle",
+    ContentAlignment = Enum.TextXAlignment.Center
+})
+
 local espParts = {}
 
 local Toggle = Tabs.Misc:CreateToggle("MyToggle", {Title = "Tower ESP (HELPS WITH TELEPORT!!!)", Default = false })
