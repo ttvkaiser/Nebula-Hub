@@ -207,7 +207,7 @@ Tabs.Teleport:CreateParagraph("Aligned Paragraph", {
     ContentAlignment = Enum.TextXAlignment.Center
 })
 
-Tabs.Telport:CreateParagraph("Aligned Paragraph", {
+Tabs.Teleport:CreateParagraph("Aligned Paragraph", {
     Title = "Tower 1",
     Content = "",
     TitleAlignment = "Middle",
