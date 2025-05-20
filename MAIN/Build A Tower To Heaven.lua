@@ -341,6 +341,126 @@ Tabs.Teleport:CreateParagraph("Aligned Paragraph", {
     ContentAlignment = Enum.TextXAlignment.Center
 })
 
+Tabs.Teleport:CreateButton{
+    Title = "Teleport to 500m mark",
+    Description = "Just teleport you there",
+    Callback = function()
+        Window:Dialog{
+            Title = "Teleport?",
+            Content = "Are you sure you want to teleport to the 500m mark?",
+            Buttons = {
+                {
+                    Title = "Confirm",
+                    Callback = function()
+                        local player = game.Players.LocalPlayer
+                        local character = player.Character or player.CharacterAdded:Wait()
+                        local rootPart = character:WaitForChild("HumanoidRootPart")
+                        
+                        -- Set the teleport destination (adjust to your map)
+                        rootPart.CFrame = CFrame.new(-125.9, 503.4, 0.143) -- X, Y, Z
+                    end
+                },
+                {
+                    Title = "Cancel",
+                    Callback = function()
+                        print("Cancelled the dialog.")
+                    end
+                }
+            }
+        }
+    end
+}	
+
+Tabs.Teleport:CreateButton{
+    Title = "Teleport to 1000m mark",
+    Description = "Just teleport you there",
+    Callback = function()
+        Window:Dialog{
+            Title = "Teleport?",
+            Content = "Are you sure you want to teleport to the 1000m mark?",
+            Buttons = {
+                {
+                    Title = "Confirm",
+                    Callback = function()
+                        local player = game.Players.LocalPlayer
+                        local character = player.Character or player.CharacterAdded:Wait()
+                        local rootPart = character:WaitForChild("HumanoidRootPart")
+                        
+                        -- Set the teleport destination (adjust to your map)
+                        rootPart.CFrame = CFrame.new(-125.9, 1003.4, 0.143) -- X, Y, Z
+                    end
+                },
+                {
+                    Title = "Cancel",
+                    Callback = function()
+                        print("Cancelled the dialog.")
+                    end
+                }
+            }
+        }
+    end
+}	
+
+Tabs.Teleport:CreateButton{
+    Title = "Teleport to 1500m mark",
+    Description = "Just teleport you there",
+    Callback = function()
+        Window:Dialog{
+            Title = "Teleport?",
+            Content = "Are you sure you want to teleport to the 1500m mark?",
+            Buttons = {
+                {
+                    Title = "Confirm",
+                    Callback = function()
+                        local player = game.Players.LocalPlayer
+                        local character = player.Character or player.CharacterAdded:Wait()
+                        local rootPart = character:WaitForChild("HumanoidRootPart")
+                        
+                        -- Set the teleport destination (adjust to your map)
+                        rootPart.CFrame = CFrame.new(-125.9, 1503.4, 0.143) -- X, Y, Z
+                    end
+                },
+                {
+                    Title = "Cancel",
+                    Callback = function()
+                        print("Cancelled the dialog.")
+                    end
+                }
+            }
+        }
+    end
+}
+
+Tabs.Teleport:CreateButton{
+    Title = "Teleport to 2000m mark",
+    Description = "Just teleport you there",
+    Callback = function()
+        Window:Dialog{
+            Title = "Teleport?",
+            Content = "Are you sure you want to teleport to the 2000m mark?",
+            Buttons = {
+                {
+                    Title = "Confirm",
+                    Callback = function()
+                        local player = game.Players.LocalPlayer
+                        local character = player.Character or player.CharacterAdded:Wait()
+                        local rootPart = character:WaitForChild("HumanoidRootPart")
+                        
+                        -- Set the teleport destination (adjust to your map)
+                        rootPart.CFrame = CFrame.new(-125.9, 2003.4, 0.143) -- X, Y, Z
+                    end
+                },
+                {
+                    Title = "Cancel",
+                    Callback = function()
+                        print("Cancelled the dialog.")
+                    end
+                }
+            }
+        }
+    end
+}	
+
 Tabs.Teleport:CreateParagraph("Aligned Paragraph", {
     Title = "Tower 3",
     Content = "",
