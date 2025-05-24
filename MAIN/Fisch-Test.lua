@@ -505,6 +505,100 @@ Players.PlayerRemoving:Connect(function()
     Dropdown3:SetValues(getPlayerNames())
 end)
 
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+
+local Toggle = Tabs.Misc:CreateToggle("MyToggle", {Title = "Player ESP", Default = false})
+local espLabels = {}
+local updateConnection = nil
+
+-- Create ESP label
+local function createESP(player)
+    if player == LocalPlayer then return end
+    local function setup()
+        local character = player.Character or player.CharacterAdded:Wait()
+        local head = character:WaitForChild("Head")
+
+        local billboard = Instance.new("BillboardGui")
+        billboard.Name = "PlayerESP"
+        billboard.Adornee = head
+        billboard.Size = UDim2.new(0, 200, 0, 30)
+        billboard.AlwaysOnTop = true
+        billboard.StudsOffset = Vector3.new(0, 2, 0)
+
+        local label = Instance.new("TextLabel")
+        label.Size = UDim2.new(1, 0, 1, 0)
+        label.BackgroundTransparency = 1
+        label.TextColor3 = Color3.new(0, 0, 0) -- Black color
+        label.TextStrokeTransparency = 0.6
+        label.Font = Enum.Font.ArialBold
+        label.TextScaled = true
+        label.Parent = billboard
+
+        billboard.Parent = head
+        espLabels[player] = {
+            Billboard = billboard,
+            Label = label,
+        }
+    end
+
+    coroutine.wrap(setup)()
+end
+
+-- Remove ESP for a player
+local function removeESP(player)
+    if espLabels[player] then
+        espLabels[player].Billboard:Destroy()
+        espLabels[player] = nil
+    end
+end
+
+-- Update distances
+local function updateESP()
+    for player, data in pairs(espLabels) do
+        if player.Character and player.Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            local distance = math.floor((LocalPlayer.Character.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position).Magnitude)
+            data.Label.Text = string.format("%s (%d studs)", player.Name, distance)
+        end
+    end
+end
+
+-- Toggle logic
+Toggle:OnChanged(function()
+    local enabled = Options.MyToggle.Value
+    print("ESP Toggle:", enabled)
+
+    if enabled then
+        -- Add ESP to all players
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= LocalPlayer then
+                createESP(player)
+            end
+        end
+
+        -- Connect to future player joins/leaves
+        Players.PlayerAdded:Connect(createESP)
+        Players.PlayerRemoving:Connect(removeESP)
+
+        -- Start update loop
+        updateConnection = RunService.RenderStepped:Connect(updateESP)
+    else
+        -- Disable all ESP
+        if updateConnection then
+            updateConnection:Disconnect()
+            updateConnection = nil
+        end
+
+        for _, data in pairs(espLabels) do
+            data.Billboard:Destroy()
+        end
+        espLabels = {}
+    end
+end)
+
+Options.MyToggle:SetValue(false)
+
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
