@@ -3,7 +3,7 @@ local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.
 local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/InterfaceManager.luau"))()
  
 local Window = Library:CreateWindow{
-    Title = `Nebula Hub | Game: Fisch | Version [v1.4.0]`,
+    Title = `Nebula Hub/Dragon Hub | Game: Fisch | Version [v1.4.0]`,
     SubTitle = "by ttvkaiser",
     TabWidth = 160,
     Size = UDim2.fromOffset(1087, 690.5),
@@ -71,7 +71,30 @@ Tabs.Home:CreateParagraph("Aligned Paragraph", {
 })
 
 Tabs.Home:AddButton({
-    Title = "Copy Discord Invite",
+    Title = "Copy Nebula Hub Discord Invite",
+    Description = "Click to copy our Discord invite link",
+    Callback = function()
+        -- Copy to clipboard
+        setclipboard("Nothing to see here...")
+
+        -- Show dialog confirmation
+        Window:Dialog({
+            Title = "Copied!",
+            Content = "Discord invite has been copied to your clipboard.",
+            Buttons = {
+                {
+                    Title = "OK",
+                    Callback = function()
+                        print("User acknowledged copy.")
+                    end
+                }
+            }
+        })
+    end
+})
+
+Tabs.Home:AddButton({
+    Title = "Copy Dargon Hub Discord Invite",
     Description = "Click to copy our Discord invite link",
     Callback = function()
         -- Copy to clipboard
@@ -404,6 +427,64 @@ Toggle_AutoReel:OnChanged(function()
         end
     end)
 end)
+
+local Dropdown2 = Tabs.Teleport:AddDropdown("TeleportDropdown", {
+    Title = "Teleport Islands!",
+    Values = {"moosewood", "roslit", "forsaken", "ancientisle", "enchantaltar"},
+    Multi = false,
+    Default = 1,
+})
+
+Dropdown2:SetValue("Spawn")
+
+Dropdown2:OnChanged(function(Value)
+    print("Dropdown changed:", Value)
+
+    -- Teleport locations
+    local teleportLocations = {
+        moosewood = Vector3.new(390.6, 135.5, 271),
+        roslit = Vector3.new(-1476.4, 133.5, 671.7),
+        forsaken = Vector3.new(-2498.2, 136.9, 1624.9),
+        ancientisle = Vector3.new(6056.1, 195.3, 278.7),
+        enchantaltar = Vector3.new(1310.7, -805.3, -103.5),
+        -- Add the rest as needed
+    }
+
+    local targetPosition = teleportLocations[Value]
+    if targetPosition then
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+
+        if character and character:FindFirstChild("HumanoidRootPart") then
+            character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+            print("Teleported to:", targetPosition)
+        end
+    else
+        print("Invalid teleport location!")
+    end
+end)
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+-- Helper function to get all player names (excluding yourself)
+local function getPlayerNames()
+    local names = {}
+    for _, player in ipairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer then
+            table.insert(names, player.Name)
+        end
+    end
+    return names
+end
+
+-- === Third Dropdown (Teleport to Players) ===
+local Dropdown3 = Tabs.Teleport:AddDropdown("TeleportDropdown", {
+    Title = "Teleport to Player",
+    Values = getPlayerNames(),
+    Multi = false,
+    Default = 1,
+})
 
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
