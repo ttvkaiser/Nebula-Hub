@@ -466,6 +466,7 @@ end)
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
+local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 
 -- Helper function to get all player names (excluding yourself)
 local function getPlayerNames()
@@ -483,8 +484,26 @@ local Dropdown3 = Tabs.Teleport:AddDropdown("TeleportDropdown", {
     Title = "Teleport to Player",
     Values = getPlayerNames(),
     Multi = false,
-    Default = 1,
+    Default = nil,
 })
+
+-- Function to teleport to selected player
+Dropdown3:OnChanged(function(selectedName)
+    local targetPlayer = Players:FindFirstChild(selectedName)
+    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        local hrp = character:WaitForChild("HumanoidRootPart")
+        hrp.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0, 5, 0) -- offset to avoid overlap
+    end
+end)
+
+-- Update dropdown values when players join/leave
+Players.PlayerAdded:Connect(function()
+    Dropdown3:SetValues(getPlayerNames())
+end)
+
+Players.PlayerRemoving:Connect(function()
+    Dropdown3:SetValues(getPlayerNames())
+end)
 
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
