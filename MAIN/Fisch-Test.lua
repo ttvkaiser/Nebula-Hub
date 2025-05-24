@@ -75,7 +75,7 @@ Tabs.Home:AddButton({
     Description = "Click to copy our Discord invite link",
     Callback = function()
         -- Copy to clipboard
-        setclipboard("Nothing to see here...")
+        setclipboard("https://discord.gg/A4MP4UYC4w")
 
         -- Show dialog confirmation
         Window:Dialog({
@@ -94,11 +94,11 @@ Tabs.Home:AddButton({
 })
 
 Tabs.Home:AddButton({
-    Title = "Copy Dargon Hub Discord Invite",
+    Title = "Copy Dragon Hub Discord Invite",
     Description = "Click to copy our Discord invite link",
     Callback = function()
         -- Copy to clipboard
-        setclipboard("Nothing to see here...")
+        setclipboard("https://discord.gg/KszRmGNMyh")
 
         -- Show dialog confirmation
         Window:Dialog({
