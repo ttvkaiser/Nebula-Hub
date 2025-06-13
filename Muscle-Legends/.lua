@@ -1,4 +1,4 @@
-local allowedPlaceId = 1234567890
+local allowedPlaceId = 3623096087
 
 if game.PlaceId == allowedPlaceId then
 	print("Script loading")
