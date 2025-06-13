@@ -572,6 +572,78 @@ Toggle:OnChanged(function(state)
     end
 end)
 
+-- Tiny Island
+Tabs.Teleport:CreateButton({
+    Title = "Tiny Island",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-31.8626194, 6.0588026, 2087.88672, -0.999396682, -9.72631931e-09, 0.034730725, -6.63278898e-09, 1, 8.91870684e-08, -0.034730725, 8.8902901e-08, -0.999396682)
+    end
+})
+
+-- Starter Island
+Tabs.Teleport:CreateButton({
+    Title = "Starter Island",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(226.252472, 8.1526947, 219.366516, -0.00880406145, 3.58277887e-08, -0.999961257, -4.41204939e-08, 1, 3.62176351e-08, 0.999961257, 4.44376482e-08, -0.00880406145)
+    end
+})
+
+-- Beach
+Tabs.Teleport:CreateButton({
+    Title = "Beach",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-365.798309, 44.5082932, -501.618591, 0.00878552441, -6.19950713e-09, 0.999961436, -4.37451603e-10, 1, 6.20358964e-09, -0.999961436, -4.91936492e-10, 0.00878552441)
+    end
+})
+
+-- Frost Gym
+Tabs.Teleport:CreateButton({
+    Title = "Frost Gym",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2933.47998, 29.6399612, -579.946045, 0.0345239155, -1.03010173e-07, 0.999403894, 1.03015294e-08, 1, 1.02715752e-07, -0.999403894, 6.74923806e-09, 0.0345239155)
+    end
+})
+
+-- Mythical Gym
+Tabs.Teleport:CreateButton({
+    Title = "Mythical Gym",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2659.50635, 21.6095238, 934.690613, 0.999999881, 4.98906161e-08, 0.000502891606, -4.98585742e-08, 1, -6.37288338e-08, -0.000502891606, 6.37037516e-08, 0.999999881)
+    end
+})
+
+-- Eternal Gym
+Tabs.Teleport:CreateButton({
+    Title = "Eternal Gym",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-7176.19141, 45.394104, -1106.31421, 0.971191287, -2.38377185e-09, 0.238301158, 1.41694778e-09, 1, 4.22844915e-09, -0.238301158, -3.76897269e-09, 0.971191287)
+    end
+})
+
+-- Legend Gym
+Tabs.Teleport:CreateButton({
+    Title = "Legend Gym",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4446.91699, 1004.46698, -3983.76074, -0.999961317, -1.97616366e-08, 0.00879266672, -1.93830077e-08, 1, 4.31365149e-08, -0.00879266672, 4.29661292e-08, -0.999961317)
+    end
+})
+
+-- Muscle King
+Tabs.Teleport:CreateButton({
+    Title = "Muscle King",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-8626, 15, -5730)
+    end
+})
+
+-- Jungle Gym
+Tabs.Teleport:CreateButton({
+    Title = "Jungle Gym",
+    Callback = function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-8137, 28, 2820)
+    end
+})
+
 Tabs.Status:AddSection("Stats Gained")
 
 local function abbreviateNumber(value)
