@@ -3,7 +3,7 @@ local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.
 local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ActualMasterOogway/Fluent-Renewed/master/Addons/InterfaceManager.luau"))()
  
 local Window = Library:CreateWindow{
-    Title = `Nebula Hub | Game: Muscle Legends | Version [v.beta]`,
+    Title = "Nebula Hub | Game: Muscle Legends | Version [v.beta]",
     SubTitle = "by Actual Master Oogway",
     TabWidth = 160,
     Size = UDim2.fromOffset(1087, 690.5),
@@ -36,12 +36,19 @@ local Tabs = {
         Title = "Auto Kill",
         Icon = "skull"
     },
+	Status = Window:CreateTab{
+        Title = "Status",
+        Icon = "circle-plus"
+    },
+	Misc = Window:CreateTab{
+        Title = "Misc",
+        Icon = "command"
+    },
     Settings = Window:CreateTab{
         Title = "Settings",
         Icon = "settings"
     }
 }
-
 local Options = Library.Options
 
 Library:Notify{
