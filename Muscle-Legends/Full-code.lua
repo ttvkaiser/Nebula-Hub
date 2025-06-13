@@ -762,6 +762,17 @@ end
 
 createMyParagraphStats()
 
+-- Inside your Fluent tab setup (example uses Tabs.Misc)
+local DestroyAdButton = Tabs.Misc:AddButton("Destroy Ad Teleport", function()
+    local portals = workspace:FindFirstChild("RobloxForwardPortals")
+    if portals then
+        portals:Destroy()
+        print("✅ Ad teleport destroyed.")
+    else
+        print("❌ No ad teleport found.")
+    end
+end)
+
 -- Permanent Shift Lock Button
 Tabs.Misc:CreateButton({
     Title = "Permanent Shift Lock",
