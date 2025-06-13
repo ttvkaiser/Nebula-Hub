@@ -36,6 +36,10 @@ local Tabs = {
         Title = "Auto Kill",
         Icon = "skull"
     },
+	Teleport = Window:CreateTab{
+        Title = "Teleport",
+        Icon = "tree-palm"
+    },
 	Status = Window:CreateTab{
         Title = "Status",
         Icon = "circle-plus"
