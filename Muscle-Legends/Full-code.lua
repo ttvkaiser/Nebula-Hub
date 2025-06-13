@@ -690,6 +690,42 @@ end
 
 createMyParagraphStats()
 
+-- Permanent Shift Lock Button
+Tabs.Misc:CreateButton({
+    Title = "Permanent Shift Lock",
+    Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/CjNsnSDy'))()
+    end
+})
+
+-- Anti AFK Button
+Tabs.Misc:CreateButton({
+    Title = "Anti AFK",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/evxncodes/mainroblox/main/anti-afk", true))()
+    end
+})
+
+-- Disable Trade Toggle
+Tabs.Misc:CreateToggle("DisableTrade", {Title = "Disable Trade", Default = false}):OnChanged(function(state)
+    local tradeEvent = game:GetService("ReplicatedStorage").rEvents.tradingEvent
+    if state then
+        tradeEvent:FireServer("disableTrading")
+    else
+        tradeEvent:FireServer("enableTrading")
+    end
+end)
+
+-- Hide Pets Toggle
+Tabs.Misc:CreateToggle("HidePets", {Title = "Hide Pets", Default = false}):OnChanged(function(state)
+    local petEvent = game:GetService("ReplicatedStorage").rEvents.showPetsEvent
+    if state then
+        petEvent:FireServer("hidePets")
+    else
+        petEvent:FireServer("showPets")
+    end
+end)
+
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
