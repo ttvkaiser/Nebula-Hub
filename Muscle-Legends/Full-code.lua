@@ -572,32 +572,6 @@ Toggle:OnChanged(function(state)
     end
 end)
 
--- View Player Placeholder Toggle
-Tabs.Killing:CreateToggle("ViewPlayer", {Title = "View Player", Default = false}):OnChanged(function(state)
-    -- Placeholder for future viewing logic
-end)
-
--- Ring Aura Inputs and Toggle
-Tabs.Killing:CreateInput("AuraSize", {
-    Title = "Ring Aura Size",
-    Placeholder = "Enter size...",
-    Callback = function(text)
-        -- Placeholder for aura size logic
-    end
-})
-
-Tabs.Killing:CreateInput("WhitelistAura", {
-    Title = "Whitelist Player",
-    Placeholder = "Enter name...",
-    Callback = function(text)
-        -- Placeholder for aura whitelist logic
-    end
-})
-
-Tabs.Killing:CreateToggle("EnableAura", {Title = "Enable Ring Aura", Default = false}):OnChanged(function(state)
-    -- Placeholder for aura effect logic
-end)
-
 Tabs.Status:AddSection("Stats Gained")
 
 local function abbreviateNumber(value)
