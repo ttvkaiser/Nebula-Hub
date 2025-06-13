@@ -185,6 +185,115 @@ ToggleNoClip:OnChanged(function()
     end
 end)
 
+Tabs.Main:AddSection("Auto Farm")
+
+local Toggle = Tabs.Main:CreateToggle("AutoRep", {Title = "Auto Lift", Default = false})
+Toggle:OnChanged(function(State)
+    if State then
+        task.spawn(function()
+            while Toggle.Value do
+                game:GetService("Players").LocalPlayer:WaitForChild("muscleEvent"):FireServer("rep")
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
+Tabs.Main:AddSection("Auto Jungle")
+
+local jungleBenchToggle = Tabs.Main:CreateToggle("JungleBench", {Title = "Auto Jungle Bench", Default = false})
+jungleBenchToggle:OnChanged(function(State)
+    if State then
+        task.spawn(function()
+            while jungleBenchToggle.Value do
+                game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-8629.88086, 64.8842468, 1855.03467))
+                game:GetService("ReplicatedStorage").rEvents.machineInteractRemote:InvokeServer("useMachine", workspace.machinesFolder["Jungle Bench"].interactSeat)
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
+local jungleBarToggle = Tabs.Main:CreateToggle("JungleBar", {Title = "Auto Jungle Bar Lift", Default = false})
+jungleBarToggle:OnChanged(function(State)
+    if State then
+        task.spawn(function()
+            while jungleBarToggle.Value do
+                game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-8678.05566, 14.5030098, 2089.25977))
+                game:GetService("ReplicatedStorage").rEvents.machineInteractRemote:InvokeServer("useMachine", workspace.machinesFolder["Jungle Bar Lift"].interactSeat)
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
+local jungleSquatToggle = Tabs.Main:CreateToggle("JungleSquat", {Title = "Auto Jungle Squat", Default = false})
+jungleSquatToggle:OnChanged(function(State)
+    if State then
+        task.spawn(function()
+            while jungleSquatToggle.Value do
+                game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(-8374.25586, 34.5933418, 2932.44995))
+                game:GetService("ReplicatedStorage").rEvents.machineInteractRemote:InvokeServer("useMachine", workspace.machinesFolder["Jungle Squat"].interactSeat)
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
+Tabs.Main:AddSection("Auto Equip")
+
+local equipWeightToggle = Tabs.Main:CreateToggle("EquipWeight", {Title = "Auto Equip Weight", Default = false})
+equipWeightToggle:OnChanged(function(State)
+    if State then
+        task.spawn(function()
+            while equipWeightToggle.Value do
+                local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Weight")
+                if tool then tool.Parent = game.Players.LocalPlayer.Character end
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
+local equipPushupToggle = Tabs.Main:CreateToggle("EquipPushups", {Title = "Auto Equip Pushups", Default = false})
+equipPushupToggle:OnChanged(function(State)
+    if State then
+        task.spawn(function()
+            while equipPushupToggle.Value do
+                local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Pushups")
+                if tool then tool.Parent = game.Players.LocalPlayer.Character end
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
+local equipSitupToggle = Tabs.Main:CreateToggle("EquipSitups", {Title = "Auto Equip Situps", Default = false})
+equipSitupToggle:OnChanged(function(State)
+    if State then
+        task.spawn(function()
+            while equipSitupToggle.Value do
+                local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Situps")
+                if tool then tool.Parent = game.Players.LocalPlayer.Character end
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
+local equipHandstandToggle = Tabs.Main:CreateToggle("EquipHandstands", {Title = "Auto Equip Handstands", Default = false})
+equipHandstandToggle:OnChanged(function(State)
+    if State then
+        task.spawn(function()
+            while equipHandstandToggle.Value do
+                local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Handstand")
+                if tool then tool.Parent = game.Players.LocalPlayer.Character end
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
 Tabs.Rocks:AddSection("Auto Punch Rocks")
 
 local selectrock = ""
