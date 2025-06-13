@@ -187,6 +187,83 @@ end)
 
 Tabs.Rocks:AddSection("Auto Punch Rocks")
 
+local selectrock = ""
+
+local function punchRock(requiredDurability, rockName)
+    getgenv().autoFarm = true
+    while getgenv().autoFarm and selectrock == rockName do
+        task.wait()
+        local player = game.Players.LocalPlayer
+        if player.Durability.Value >= requiredDurability then
+            for _, v in pairs(game.Workspace.machinesFolder:GetDescendants()) do
+                if v.Name == "neededDurability" and v.Value == requiredDurability and player.Character:FindFirstChild("LeftHand") and player.Character:FindFirstChild("RightHand") then
+                    firetouchinterest(v.Parent.Rock, player.Character.RightHand, 0)
+                    firetouchinterest(v.Parent.Rock, player.Character.RightHand, 1)
+                    firetouchinterest(v.Parent.Rock, player.Character.LeftHand, 0)
+                    firetouchinterest(v.Parent.Rock, player.Character.LeftHand, 1)
+                    gettool()
+                end
+            end
+        end
+    end
+end
+
+-- jungle Rock
+local jungleToggle = Tabs.Rocks:CreateToggle("JungleRock", {Title = "Auto Punch Jungle Rock (10M)", Default = false})
+jungleToggle:OnChanged(function()
+    selectrock = "Ancient Jungle Rock"
+    getgenv().autoFarm = Options.JungleRock.Value
+    if Options.JungleRock.Value then punchRock(10000000, selectrock) end
+end)
+
+-- muscle king Rock
+local kingToggle = Tabs.Rocks:CreateToggle("KingRock", {Title = "Auto Punch Muscle King Rock (5M)", Default = false})
+kingToggle:OnChanged(function()
+    selectrock = "Muscle King Gym Rock"
+    getgenv().autoFarm = Options.KingRock.Value
+    if Options.KingRock.Value then punchRock(5000000, selectrock) end
+end)
+
+-- Legend Rock
+local legendToggle = Tabs.Rocks:CreateToggle("LegendRock", {Title = "Auto Punch Legend Rock (1M)", Default = false})
+legendToggle:OnChanged(function()
+    selectrock = "Legend Gym Rock"
+    getgenv().autoFarm = Options.LegendRock.Value
+    if Options.LegendRock.Value then punchRock(1000000, selectrock) end
+end)
+
+-- Inferno Rock
+local infernoToggle = Tabs.Rocks:CreateToggle("InfernoRock", {Title = "Auto Punch Inferno Rock (750K)", Default = false})
+infernoToggle:OnChanged(function()
+    selectrock = "Eternal Gym Rock"
+    getgenv().autoFarm = Options.InfernoRock.Value
+    if Options.InfernoRock.Value then punchRock(750000, selectrock) end
+end)
+
+-- Mythical Rock
+local mythToggle = Tabs.Rocks:CreateToggle("MythRock", {Title = "Auto Punch Mythical Rock (400K)", Default = false})
+mythToggle:OnChanged(function()
+    selectrock = "Mythical Gym Rock"
+    getgenv().autoFarm = Options.MythRock.Value
+    if Options.MythRock.Value then punchRock(400000, selectrock) end
+end)
+
+-- Frost Rock
+local frostToggle = Tabs.Rocks:CreateToggle("FrostRock", {Title = "Auto Punch Frost Rock (150K)", Default = false})
+frostToggle:OnChanged(function()
+    selectrock = "Frost Gym Rock"
+    getgenv().autoFarm = Options.FrostRock.Value
+    if Options.FrostRock.Value then punchRock(150000, selectrock) end
+end)
+
+-- Tiny Rock
+local tinyToggle = Tabs.Rocks:CreateToggle("TinyRock", {Title = "Auto Punch Tiny Rock (0)", Default = false})
+tinyToggle:OnChanged(function()
+    selectrock = "Tiny Island Rock"
+    getgenv().autoFarm = Options.TinyRock.Value
+    if Options.TinyRock.Value then punchRock(0, selectrock) end
+end)
+
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
