@@ -774,7 +774,7 @@ Tabs.Misc:CreateButton({
 Tabs.Misc:CreateButton({
     Title = "Anti AFK",
     Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/evxncodes/mainroblox/main/anti-afk", true))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Moha-space/SPACE-HUB-/refs/heads/main/MAIN%20AINTI%20AFK%20.txt"))()
     end
 })
 
