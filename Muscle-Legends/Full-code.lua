@@ -301,6 +301,74 @@ equipHandstandToggle:OnChanged(function(State)
     end
 end)
 
+-- Auto Rebirth (Normal)
+local autoRebirthToggle = Tabs.Rebirth:CreateToggle("AutoRebirth", {Title = "Auto Rebirth (Normal)", Default = false})
+autoRebirthToggle:OnChanged(function(State)
+	if State then
+		task.spawn(function()
+			while autoRebirthToggle.Value do
+				game:GetService("ReplicatedStorage"):WaitForChild("rEvents"):WaitForChild("rebirthRemote"):InvokeServer("rebirthRequest")
+				task.wait(0.1)
+			end
+		end)
+	end
+end)
+
+-- Auto Size 2
+local autoSize2Toggle = Tabs.Rebirth:CreateToggle("AutoSize2", {Title = "Auto Size 2", Default = false})
+autoSize2Toggle:OnChanged(function(State)
+	if State then
+		autoSizeLoop = task.spawn(function()
+			while autoSize2Toggle.Value do
+				game:GetService("ReplicatedStorage").rEvents.changeSpeedSizeRemote:InvokeServer("changeSize", 2)
+				task.wait()
+			end
+		end)
+	else
+		if autoSizeLoop then
+			task.cancel(autoSizeLoop)
+			autoSizeLoop = nil
+		end
+	end
+end)
+
+-- Hide All Frames
+local hideFramesToggle = Tabs.Rebirth:CreateToggle("HideAllFrames", {Title = "Hide All Frames", Default = false})
+hideFramesToggle:OnChanged(function(State)
+	local rSto = game:GetService("ReplicatedStorage")
+	for _, obj in pairs(rSto:GetChildren()) do
+		if obj:IsA("Instance") and obj.Name:match("Frame$") then
+			obj.Visible = not State
+		end
+	end
+end)
+
+-- Label
+Tabs.Rebirth:AddSection("OP Stuff")
+
+-- Fast Rebirths
+local fastRebirthsToggle = Tabs.Rebirth:CreateToggle("FastRebirths", {Title = "Fast Rebirths", Default = false})
+fastRebirthsToggle:OnChanged(function(State)
+	if State then
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/0o0o0o0o0o0o0o0o0o0o0o0o/0o0o0o0o/refs/heads/main/Kk"))()
+	end
+end)
+
+-- Speed Grind (No Rebirth)
+local speedGrindToggle = Tabs.Rebirth:CreateToggle("SpeedGrind", {Title = "Fast Grind (No Rebirth)", Default = false})
+speedGrindToggle:OnChanged(function(State)
+	if State then
+		for i = 1, 12 do
+			task.spawn(function()
+				while speedGrindToggle.Value do
+					game:GetService("Players").LocalPlayer.muscleEvent:FireServer("rep")
+					task.wait(0.083)
+				end
+			end)
+		end
+	end
+end)
+
 Tabs.Rocks:AddSection("Auto Punch Rocks")
 
 local selectrock = ""
