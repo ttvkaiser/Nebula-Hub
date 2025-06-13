@@ -448,6 +448,122 @@ tinyToggle:OnChanged(function()
     if Options.TinyRock.Value then punchRock(0, selectrock) end
 end)
 
+local function abbreviateNumber(value)
+    if value >= 1e15 then
+        return string.format("%.1fQa", value / 1e15)
+    elseif value >= 1e12 then
+        return string.format("%.1fT", value / 1e12)
+    elseif value >= 1e9 then
+        return string.format("%.1fB", value / 1e9)
+    elseif value >= 1e6 then
+        return string.format("%.1fM", value / 1e6)
+    elseif value >= 1e3 then
+        return string.format("%.1fK", value / 1e3)
+    else
+        return tostring(value)
+    end
+end
+
+-- Paragraph containers
+local paragraphs = {
+    TimeSpent = Tabs.Status:CreateParagraph("TimeSpent", {
+        Title = "Time Spent",
+        Content = "Time spent in this server: 00:00",
+        TitleAlignment = "Middle",
+        ContentAlignment = Enum.TextXAlignment.Center
+    }),
+    StrengthGained = Tabs.Status:CreateParagraph("StrengthGained", {
+        Title = "Strength",
+        Content = "Strength gained: 0",
+        TitleAlignment = "Middle",
+        ContentAlignment = Enum.TextXAlignment.Center
+    }),
+    DurabilityGained = Tabs.Status:CreateParagraph("DurabilityGained", {
+        Title = "Durability",
+        Content = "Durability gained: 0",
+        TitleAlignment = "Middle",
+        ContentAlignment = Enum.TextXAlignment.Center
+    }),
+    AgilityGained = Tabs.Status:CreateParagraph("AgilityGained", {
+        Title = "Agility",
+        Content = "Agility gained: 0",
+        TitleAlignment = "Middle",
+        ContentAlignment = Enum.TextXAlignment.Center
+    }),
+    KillsGained = Tabs.Status:CreateParagraph("KillsGained", {
+        Title = "Kills",
+        Content = "Kills gained: 0",
+        TitleAlignment = "Middle",
+        ContentAlignment = Enum.TextXAlignment.Center
+    }),
+    EvilKarmaGained = Tabs.Status:CreateParagraph("EvilKarmaGained", {
+        Title = "Evil Karma",
+        Content = "Evil Karma gained: 0",
+        TitleAlignment = "Middle",
+        ContentAlignment = Enum.TextXAlignment.Center
+    }),
+    GoodKarmaGained = Tabs.Status:CreateParagraph("GoodKarmaGained", {
+        Title = "Good Karma",
+        Content = "Good Karma gained: 0",
+        TitleAlignment = "Middle",
+        ContentAlignment = Enum.TextXAlignment.Center
+    })
+}
+
+local function createMyParagraphStats()
+    local player = game.Players.LocalPlayer
+    if not player then return end
+
+    local leaderstats = player:WaitForChild("leaderstats")
+    local strengthStat = leaderstats:WaitForChild("Strength")
+    local durabilityStat = player:WaitForChild("Durability")
+    local agilityStat = player:WaitForChild("Agility")
+    local killsStat = leaderstats:WaitForChild("Kills")
+    local evilKarmaStat = player:WaitForChild("evilKarma")
+    local goodKarmaStat = player:WaitForChild("goodKarma")
+
+    local initialStrength = strengthStat.Value
+    local initialDurability = durabilityStat.Value
+    local initialAgility = agilityStat.Value
+    local initialKills = killsStat.Value
+    local initialEvilKarma = evilKarmaStat.Value
+    local initialGoodKarma = goodKarmaStat.Value
+
+    local startTime = tick()
+
+    local function updateParagraphs()
+        paragraphs.StrengthGained:SetContent("Strength gained: " .. abbreviateNumber(strengthStat.Value - initialStrength))
+        paragraphs.DurabilityGained:SetContent("Durability gained: " .. abbreviateNumber(durabilityStat.Value - initialDurability))
+        paragraphs.AgilityGained:SetContent("Agility gained: " .. abbreviateNumber(agilityStat.Value - initialAgility))
+        paragraphs.KillsGained:SetContent("Kills gained: " .. abbreviateNumber(killsStat.Value - initialKills))
+        paragraphs.EvilKarmaGained:SetContent("Evil Karma gained: " .. abbreviateNumber(evilKarmaStat.Value - initialEvilKarma))
+        paragraphs.GoodKarmaGained:SetContent("Good Karma gained: " .. abbreviateNumber(goodKarmaStat.Value - initialGoodKarma))
+    end
+
+    local function updateTimeSpent()
+        local timeSpent = tick() - startTime
+        local minutes = math.floor(timeSpent / 60)
+        local seconds = math.floor(timeSpent % 60)
+        paragraphs.TimeSpent:SetContent(string.format("Time spent in this server: %02d:%02d", minutes, seconds))
+    end
+
+    -- Connect stat changes to updates
+    strengthStat.Changed:Connect(updateParagraphs)
+    durabilityStat.Changed:Connect(updateParagraphs)
+    agilityStat.Changed:Connect(updateParagraphs)
+    killsStat.Changed:Connect(updateParagraphs)
+    evilKarmaStat.Changed:Connect(updateParagraphs)
+    goodKarmaStat.Changed:Connect(updateParagraphs)
+
+    -- Update loop for time
+    game:GetService("RunService").Heartbeat:Connect(updateTimeSpent)
+
+    -- Initial refresh
+    updateParagraphs()
+end
+
+createMyParagraphStats()
+
 -- Addons:
 -- SaveManager (Allows you to have a configuration system)
 -- InterfaceManager (Allows you to have a interface managment system)
