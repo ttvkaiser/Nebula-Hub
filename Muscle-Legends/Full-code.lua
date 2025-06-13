@@ -32,7 +32,7 @@ local Tabs = {
         Title = "Auto Rebirths",
         Icon = "biceps-flexed"
     },
-  	Kills = Window:CreateTab{
+  	Killing = Window:CreateTab{
         Title = "Auto Kill",
         Icon = "skull"
     },
@@ -597,6 +597,8 @@ Tabs.Killing:CreateInput("WhitelistAura", {
 Tabs.Killing:CreateToggle("EnableAura", {Title = "Enable Ring Aura", Default = false}):OnChanged(function(state)
     -- Placeholder for aura effect logic
 end)
+
+Tabs.Status:AddSection("Stats Gained")
 
 local function abbreviateNumber(value)
     if value >= 1e15 then
