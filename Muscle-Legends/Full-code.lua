@@ -4,7 +4,7 @@ local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercon
  
 local Window = Library:CreateWindow{
     Title = "Nebula Hub | Game: Muscle Legends | Version [v.beta]",
-    SubTitle = "by Actual Master Oogway",
+    SubTitle = "by ttvkaiser",
     TabWidth = 160,
     Size = UDim2.fromOffset(1087, 690.5),
     Resize = true, -- Resize this ^ Size according to a 1920x1080 screen, good for mobile users but may look weird on some devices
@@ -450,6 +450,152 @@ tinyToggle:OnChanged(function()
     selectrock = "Tiny Island Rock"
     getgenv().autoFarm = Options.TinyRock.Value
     if Options.TinyRock.Value then punchRock(0, selectrock) end
+end)
+
+-- Auto Punch Toggle (No Animation)
+local Toggle = Tabs.Killing:CreateToggle("AutoPunchNoAnim", {Title = "Auto Punch (No Anim)", Default = false})
+Toggle:OnChanged(function(state)
+    while state and Toggle.Value do
+        local player = game.Players.LocalPlayer
+        local char = game.Workspace:FindFirstChild(player.Name)
+        local punchTool = player.Backpack:FindFirstChild("Punch") or (char and char:FindFirstChild("Punch"))
+
+        if punchTool then
+            if punchTool.Parent ~= char then
+                punchTool.Parent = char -- Equip
+            end
+
+            player.muscleEvent:FireServer("punch", "rightHand")
+            player.muscleEvent:FireServer("punch", "leftHand")
+        else
+            warn("Punch tool not found")
+            Toggle:SetValue(false) -- Stop if tool not found
+        end
+        task.wait()
+    end
+end)
+
+-- Speed Punch Button
+Tabs.Killing:CreateButton({
+    Title = "Fast Punch",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local punch = player.Backpack:FindFirstChild("Punch") or (game.Workspace:FindFirstChild(player.Name) and game.Workspace[player.Name]:FindFirstChild("Punch"))
+        if punch and punch:FindFirstChild("attackTime") then
+            punch.attackTime.Value = 0
+        end
+    end
+})
+
+-- Normal Punch Button
+Tabs.Killing:CreateButton({
+    Title = "Normal Punch",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        local punch = player.Backpack:FindFirstChild("Punch") or (game.Workspace:FindFirstChild(player.Name) and game.Workspace[player.Name]:FindFirstChild("Punch"))
+        if punch and punch:FindFirstChild("attackTime") then
+            punch.attackTime.Value = 0.35
+        end
+    end
+})
+
+-- Whitelist Table
+local whitelist = {}
+
+Tabs.Killing:CreateInput("WhitelistBox", {
+    Title = "Whitelist Player",
+    Default = "",
+    Placeholder = "Enter username...",
+    Numeric = false,
+    Callback = function(text)
+        local target = game.Players:FindFirstChild(text)
+        if target then
+            whitelist[target.Name] = true
+        end
+    end
+})
+
+-- Auto Kill Toggle
+local Toggle = Tabs.Killing:CreateToggle("AutoKill", {Title = "Auto Kill", Default = false})
+Toggle:OnChanged(function(state)
+    while state and Toggle.Value do
+        local player = game.Players.LocalPlayer
+
+        for _, target in ipairs(game.Players:GetPlayers()) do
+            if target ~= player and not whitelist[target.Name] then
+                local root = target.Character and target.Character:FindFirstChild("HumanoidRootPart")
+                local rHand = player.Character and player.Character:FindFirstChild("RightHand")
+                local lHand = player.Character and player.Character:FindFirstChild("LeftHand")
+
+                if root and rHand and lHand then
+                    firetouchinterest(rHand, root, 1)
+                    firetouchinterest(lHand, root, 1)
+                    firetouchinterest(rHand, root, 0)
+                    firetouchinterest(lHand, root, 0)
+                end
+            end
+        end
+        task.wait(0.1)
+    end
+end)
+
+-- Target Kill
+local targetPlayerName = nil
+Tabs.Killing:CreateInput("TargetPlayerBox", {
+    Title = "Player Username",
+    Default = "",
+    Placeholder = "Enter exact username...",
+    Callback = function(text)
+        targetPlayerName = text
+    end
+})
+
+local Toggle = Tabs.Killing:CreateToggle("AutoKillTarget", {Title = "Auto Kill Player", Default = false})
+Toggle:OnChanged(function(state)
+    while state and Toggle.Value do
+        local player = game.Players.LocalPlayer
+        local target = game.Players:FindFirstChild(targetPlayerName)
+
+        if target and target ~= player then
+            local root = target.Character and target.Character:FindFirstChild("HumanoidRootPart")
+            local rHand = player.Character and player.Character:FindFirstChild("RightHand")
+            local lHand = player.Character and player.Character:FindFirstChild("LeftHand")
+
+            if root and rHand and lHand then
+                firetouchinterest(rHand, root, 1)
+                firetouchinterest(lHand, root, 1)
+                firetouchinterest(rHand, root, 0)
+                firetouchinterest(lHand, root, 0)
+            end
+        end
+        task.wait(0.1)
+    end
+end)
+
+-- View Player Placeholder Toggle
+Tabs.Killing:CreateToggle("ViewPlayer", {Title = "View Player", Default = false}):OnChanged(function(state)
+    -- Placeholder for future viewing logic
+end)
+
+-- Ring Aura Inputs and Toggle
+Tabs.Killing:CreateInput("AuraSize", {
+    Title = "Ring Aura Size",
+    Placeholder = "Enter size...",
+    Callback = function(text)
+        -- Placeholder for aura size logic
+    end
+})
+
+Tabs.Killing:CreateInput("WhitelistAura", {
+    Title = "Whitelist Player",
+    Placeholder = "Enter name...",
+    Callback = function(text)
+        -- Placeholder for aura whitelist logic
+    end
+})
+
+Tabs.Killing:CreateToggle("EnableAura", {Title = "Enable Ring Aura", Default = false}):OnChanged(function(state)
+    -- Placeholder for aura effect logic
 end)
 
 local function abbreviateNumber(value)
