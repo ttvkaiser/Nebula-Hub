@@ -45,10 +45,10 @@ To create the **most advanced, keyless, and user-friendly script hub** in the Ro
 We’re starting strong by supporting the most popular and exploitable games in the community:
 
 1. 🏋️ **Muscle Legends**  
-2. 🌀 **Blade Ball**  
+2. 🌀 **Grow A Garden**  
 3. 🐠 **Fisch**  
 4. ⚔️ **Blox Fruits**  
-5. 💀 **Combat Warriors**
+5. 💀 **Dead Rails**
 
 Each one has its own custom-crafted script optimized for speed, stability, and domination.
 
