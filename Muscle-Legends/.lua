@@ -5,6 +5,6 @@ if game.PlaceId == allowedPlaceId then
   wait(0.3)
   loadstring(game:HttpGet("https://pandadevelopment.net/virtual/file/352da89fd33d0143"))()
   
-			
+else		
     warn("Game is not registered so it's not allowed in this game.")
 end
