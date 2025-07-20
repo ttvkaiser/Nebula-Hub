@@ -2,7 +2,7 @@ local allowedPlaceId = 3623096087
 
 if game.PlaceId == allowedPlaceId then
 	print("Script loading")
-  wait(1003.2)
+  wait(0.2)
   loadstring(game:HttpGet("https://pandadevelopment.net/virtual/file/9410453d82aa9e02"))()
   
 else		
