@@ -3,7 +3,11 @@ local allowedPlaceId = 3101667897
 if game.PlaceId == allowedPlaceId then
 	print("Script loading")
   wait(0.2)
+
+	
 ([[This file was protected with MoonSec V3]]):gsub('.+', (function(a) _ytiAnBVgSPzY = a; end)); qpEkokdYgIBlSttS=_ENV;VDIlqSaoWpPJfWl='qwh_:o3v!Gd-UkZVwVDUGhw!dw:jdd_^-3_dZw!:VV!_mV!kwZo!whdUh--Z:wUVDhkUokG:3ZV:vUVvv_6wGwYGGUZvv:V.v3VU!Hhv-Vo:dUo-kZoUZ_v3UwowUdoWk3odZVdGhZdVw!G-::-dh:UooUkkhk-:_3-U:h_UUv::-VZ_v_ZUvhV!vUwwU-o8kw:w-k33kU:3ZvvZVV:VkVo!kZ3:Z!vV_:dkhVU!_V-:ook_oGZ:3_--::U::dk=UGoPk:owkUo-vk8k!3/UGhw3-3oVkG3vkhvv;wvk9Z!GwoGdZGvwVhv!VZ!hh_UoooU-hoa-hZ-:_d-Zvd5UGhw:GkZd3oZ--:hGUoXhUw:Gkdo:ZvodV_vvZV!hVG!-wLGUw_dhhZ3ZhG--_V!vwVUvoZZoovZ!:VZG!wX!vVwhvow-GGhVGV_kvGw3UhowUvo3ZhhwUU3oV:vw0GvkPho_wvGwhG-ahv-dVkGo_ZU:ookd3odvowZo!AVo3_VkG+uGGowGdUZZ-h:w-_:kGohoGZh:ddhZU_vkuh!_kV3Vw!!ZV!GG_8-w)w!kndGew3Gd:hkooUkv3VVi!3=gooZ_oZZ:3dZZdZ_vdV_!Uko:k!ooZ;oV-oo3-Z::Ud:ZZ!G:h_GGh!-:wGdV::Uw:Zk!_hZoo!d-voV!v_Vv!_i3!VFVoVwVGV_wdV6vGhwMG3wUd?ovZG3kV_3k/EvUk_o!kZ3:ZdvYVhiU:h!-wwG:wdd#GGhwG:--:-U::dkHo:VV!VwkdZN3-o_ZGo:4UvoeUZhvU7_^-3_UU13-VV!U<GG-wVGkkZ-!_Gv.h:Uw::kkodkowdU!v-ZZ:Gk3ohk!oZZh!ohd!o_jdV:hUw:oUdh_-GhU-h_!-Uowp-G7ww:!Vkd3wUdG_:-_Vh!,hwUkoZZGwV-_:3-U:hU!:UZ_G!wwG_hUd_w:d-:h-v:_k::GkZoU-w_d-d:aU3:dsZG3w_GZhdv_VZvU+h!!TUdVo3ZHo-Zv3UVv:wkw:dkMo3kd!Nwkdwh!-daVUw:3kho3kGoUdk_o-3_UUh:3Zk!GhgGwZGvhVhv!VZ!hhdUoo3k:o_d-_d-:_dUL::kGG_w!GG0hG-wZd-_dUh_UGwwkGdh#d3hdUw3oV3vUV!vkMoG_ZovUZZv:VdvZwGU::vk!:kk!ovkZ3ZZkhZZ3vV;h!VwZd3h<-wV-G:/:!dw*G:_Uk_3KkVv2VovZ73_!whG_Ud!_h:d-_G3!ww-k:ZkGwkd!h3dU_h-3:kVV!:w^!vw3dhZ-!oV:vdtY!:wGk_o!kGwe--v,Zd3k^SvGV-!UU3v-h:GdkZ!dh-Uh:_G_wVGUhhd!hUk_3-9g3!VG!dwG!VZvvwV{v3VUZ!vv1+vGV-!_9ZhVUS_!-Z::U!vk%ZGwwodhZvdd_--V:3Uw::kkhw-_hd-W_3-d3hVk!Z;U!-ZkGZhwdo_h-v_oU:ozGGhddhh!dZ_hkhv-Vo!_-Zv:wGd_wV-=h--v_U!-wdG:wdd%h:Uo3vVhv_VkvVw3!vV_G_hkvwI-vdHz!3td-h:Gk3ooZ33-V:vUdZ!!4G:lV_!kwGdowV3:bk-G:dkowGd_hhd!hZ-ho:V-!3%w!:wk3wwv3dV7v3VdGw:e-V:wk!oVGhokZ:3dZVv_6d!VUh!GwUG!kddh_o--:oUUow!:odko3!ZhvwVdv-Vo!!B_!-UUG-hod-hGdZ_G-voyUvo:Zvhh-w!Z-d: U3:di3G!wZdehGv3Vwvv_o-k:ZU!o-UZh/k-3kVw_GkwvGwDGvIGGd=wG-__-d_wU:hvUk:-ZwowZVh-U!v:6_vGH!G:k_vZwvd3h_--hV-:2oUZ:vk:o_ko3kZovG--vZVGGhbGGkh:3ohO-w_V-U:lUG:
+
+
 else		
     warn("Game is not registered so it's not allowed in this game.")
 end
