@@ -6,23 +6,12 @@
 
 ## 🛠️ Features
 
-- ✅ **Multi-UI Support**
-  - Elerium UI
+- ✅ **UI Support**
   - Fluent Renewed UI
-  - Wind I UI
 
 - 🎮 **Game Scripts**
-  - DIG Simulator
-    - Speed Hack
-    - Infinite Jump
-    - Auto Dig
-    - Safe Noclip
-  - *(More Games Coming Soon)*
-
-- 🔑 **Key System**
-  - Fast, Secure Key System (Nebula Theme)
-  - Discord-Based Support
-  - One-Time Key per Session
+- Muscle Legends: 🟢
+- Legends of Speed: 🟢
 
 - 🌐 **Discord Integration**
   - Community Hub
@@ -36,7 +25,7 @@
 Paste this into your executor to launch Nebula Hub:
 
 ``lua
-loadstring(game:HttpGet("https://nebula-hub.xyz/loader.lua"))()
+placeholder
 ``
 
 > ⚠️ **Note:** Only use trusted executors like *Synapse X, Fluxus, KRNL*.
@@ -53,7 +42,7 @@ loadstring(game:HttpGet("https://nebula-hub.xyz/loader.lua"))()
 
 Stay updated, get support, and connect with the community!
 
-[![Join Nebula Hub Discord](https://img.shields.io/discord/000000000000000000?label=Join%20Discord&logo=discord&style=for-the-badge)](https://discord.gg/YOUR-LINK-HERE)
+[![Join Nebula Hub Discord](https://img.shields.io/discord/000000000000000000?label=Join%20Discord&logo=discord&style=for-the-badge)](https://discord.gg/xbRqESfpD8)
 
 ---
 
@@ -72,7 +61,7 @@ Stay updated, get support, and connect with the community!
 
 ## 🧑‍💻 Developer Notes
 
-> 🛠️ Built by **Scrip Ter** and the Nebula Dev Team.
+> 🛠️ Built by **ttvkaiser** and the Nebula Dev Team.
 
 - ⚡ Optimized for Performance
 - 🧩 Modular Script System
