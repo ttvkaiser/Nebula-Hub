@@ -79,4 +79,27 @@ Use responsibly. The Nebula Team is not liable for misuse or any in-game bans.
 
 ---
 
+# Nebula Hub Status
+
+**Legend:**  
+🟢 — 99% Undetected  
+🟡 — Errors in code (75-90% undetected)  
+🔴 — Fully detected (instant ban) or being fixed  
+🟣 — Fully undetected  
+🔵 — Coming soon  
+⚫ — Discontinued  
+
+---
+
+| Game / Hub                   | Status  |
+|-----------------------------|---------|
+| Nebula Hub                  | 🟣       |
+| Nebula Hub Muscle Legends   | 🟣       |
+| Nebula Hub Legends of Speed | 🟣       |
+| Nebula Hub Grow a Garden    | 🔵       |
+| Nebula Hub Fisch            | ⚫       |
+| Nebula Hub BGSI             | ⚫       |
+
+---
+
 > ⭐ **Support Us by Sharing Nebula Hub with Friends!**
