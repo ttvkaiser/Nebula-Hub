@@ -1,7 +1,7 @@
 local player = game.Players.LocalPlayer
 local muscleEvent = player:WaitForChild("muscleEvent")
 local replicatedStorage = game:GetService("ReplicatedStorage")
--- Funktion: Alle Pets ablegen
+
 local function unequipPets()
     for _, folder in pairs(player.petsFolder:GetChildren()) do
         if folder:IsA("Folder") then
@@ -13,7 +13,6 @@ local function unequipPets()
     task.wait(0.1)
 end
 
--- Funktion: Alle Pets mit bestimmtem Namen ausrüsten
 local function equipPetsByName(name)
     unequipPets()
     task.wait(0.01)
@@ -24,40 +23,10 @@ local function equipPetsByName(name)
     end
 end
 
--- Jungle Bar Lift erkennen
-local function getJungleBarLiftSeat()
-    local machines = workspace:FindFirstChild("machinesFolder")
-    if machines then
-        local lift = machines:FindFirstChild("Jungle Bar Lift")
-        if lift then
-            return lift:FindFirstChild("interactSeat")
-        end
-    end
-    return nil
-end
-
--- Taste E simulieren
-local function pressE()
-    local vim = game:GetService("VirtualInputManager")
-    vim:SendKeyEvent(true, "E", false, game)
-    task.wait(0.05)
-    vim:SendKeyEvent(false, "E", false, game)
-end
-
--- UI verstecken für mehr FPS
-for _, v in pairs(game.CoreGui:GetDescendants()) do
-    if v:IsA("Frame") then
-        v.Visible = false
-    end
-end
-
--- Hauptlogik
 local function fastTrainAndRebirthLoop()
     while true do
-        -- Swift Samurai ausrüsten
         equipPetsByName("Swift Samurai")
 
-        -- Stärkegrenze berechnen
         local rebirths = player.leaderstats.Rebirths.Value
         local strengthTarget = 10000 + (rebirths * 5000)
         if player.ultimatesFolder:FindFirstChild("Golden Rebirth") then
@@ -65,14 +34,6 @@ local function fastTrainAndRebirthLoop()
             strengthTarget = math.floor(strengthTarget * (1 - (golden * 0.1)))
         end
 
-        -- Zum Jungle Bar Lift teleportieren
-        local seat = getJungleBarLiftSeat()
-        if seat then
-            player.Character.HumanoidRootPart.CFrame = seat.CFrame * CFrame.new(0, 3, 0)
-            repeat task.wait(0.1) pressE() until player.Character.Humanoid.Sit
-        end
-
-        -- Sehr schnelles Training bis zur Stärkegrenze
         while player.leaderstats.Strength.Value < strengthTarget do
             for _ = 1, 10 do
                 muscleEvent:FireServer("rep")
@@ -80,11 +41,9 @@ local function fastTrainAndRebirthLoop()
             task.wait(0.01)
         end
 
-        -- Tribal Overlord ausrüsten
         equipPetsByName("Tribal Overlord")
         task.wait(0.2)
 
-        -- Rebirth ausführen
         local before = player.leaderstats.Rebirths.Value
         repeat
             replicatedStorage.rEvents.rebirthRemote:InvokeServer("rebirthRequest")
@@ -95,5 +54,4 @@ local function fastTrainAndRebirthLoop()
     end
 end
 
--- Starten
 task.spawn(fastTrainAndRebirthLoop)
