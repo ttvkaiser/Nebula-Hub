@@ -47,10 +47,10 @@ local function fastTrainAndRebirthLoop()
         local before = player.leaderstats.Rebirths.Value
         repeat
             replicatedStorage.rEvents.rebirthRemote:InvokeServer("rebirthRequest")
-            task.wait(0.1)
+            task.wait(0.001)
         until player.leaderstats.Rebirths.Value > before
 
-        task.wait(0.5)
+        task.wait(0.0083)
     end
 end
 
