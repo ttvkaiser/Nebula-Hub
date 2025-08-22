@@ -1,3 +1,18 @@
+--[[
+   Copyright (c) 2025 EMPEROR. All rights reserved.
+
+   This script is the property of EMPEROR and is protected under
+   applicable copyright and intellectual property laws, including
+   the Copyright Act of 2025.
+
+   Unauthorized reproduction, distribution, modification, or use of this
+   script, in whole or in part, is strictly prohibited without prior
+   written permission from the author.
+
+   For inquiries regarding licensing or authorized use, please contact:
+   [Your preferred contact info or "Private"]
+]]--
+
 local player = game.Players.LocalPlayer
 local muscleEvent = player:WaitForChild("muscleEvent")
 local replicatedStorage = game:GetService("ReplicatedStorage")
